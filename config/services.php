@@ -35,4 +35,11 @@ return [
         ],
     ],
 
+    'qstash' => [
+        'token'               => env('QSTASH_TOKEN'),
+        'url'                 => env('QSTASH_URL', 'https://qstash.upstash.io'),
+        'current_signing_key' => env('QSTASH_CURRENT_SIGNING_KEY'),
+        'next_signing_key'    => env('QSTASH_NEXT_SIGNING_KEY'),
+    ],
+
 ];

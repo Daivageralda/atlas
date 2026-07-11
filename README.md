@@ -2,7 +2,7 @@
 
 <br />
 
-<img src="public/images/atlas-logo-full.png" alt="Atlas" height="52" />
+<img src="public/logo/logo-full.png" alt="Atlas" height="52" />
 
 <br />
 <br />
@@ -249,4 +249,4 @@ Dokumentasi lengkap tersedia di halaman **Docs** di dalam dashboard aplikasi.
 
 ## License
 
-MIT © [Duta Meta Graha](https://dutametagraha.com)
+MIT © [Daivageralda](https://github.com/daivageralda)

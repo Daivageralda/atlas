@@ -2,7 +2,7 @@
 
 <br />
 
-<img src="./public/logo/logo-full.png" alt="Atlas" height="52" />
+<img src="./public/logo/logo.png" alt="Atlas" height="52" />
 
 <br />
 <br />

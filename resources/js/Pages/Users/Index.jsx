@@ -3,19 +3,19 @@ import { Head, useForm, router, Link } from '@inertiajs/react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { 
     Users, 
-    Search, 
+    MagnifyingGlass, 
     UserPlus, 
-    Edit2, 
+    PencilSimple, 
     UserMinus, 
     UserCheck,
     X,
     Shield,
     Briefcase,
-    HelpCircle,
-    ChevronLeft,
-    ChevronRight,
-    RefreshCcw
-} from 'lucide-react';
+    Question,
+    CaretLeft,
+    CaretRight,
+    ArrowsCounterClockwise
+} from '@phosphor-icons/react';
 import { EmptyState } from '../../Components/ui/EmptyState';
 
 export default function Index({ users, filters, tenants, auth }) {
@@ -186,7 +186,7 @@ export default function Index({ users, filters, tenants, auth }) {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-atlas-card border border-atlas-border rounded-card p-4 text-xs">
                 {/* Search */}
                 <div className="relative">
-                    <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-atlas-secondary" />
+                    <MagnifyingGlass className="absolute left-3 top-2.5 h-3.5 w-3.5 text-atlas-secondary" />
                     <input
                         type="text"
                         value={search}
@@ -218,7 +218,7 @@ export default function Index({ users, filters, tenants, auth }) {
                         onClick={handleReset}
                         className="w-full sm:w-auto px-4 h-9 flex items-center justify-center gap-1.5 rounded-button border border-atlas-border bg-atlas-surface hover:bg-atlas-hover text-atlas-secondary hover:text-atlas-primary transition-colors font-semibold"
                     >
-                        <RefreshCcw className="h-3.5 w-3.5" />
+                        <ArrowsCounterClockwise className="h-3.5 w-3.5" />
                         Reset
                     </button>
                 </div>
@@ -263,7 +263,7 @@ export default function Index({ users, filters, tenants, auth }) {
                                                     className="p-1.5 text-atlas-secondary hover:text-atlas-accent hover:bg-atlas-surface rounded transition-colors"
                                                     title="Edit parameter pengguna"
                                                 >
-                                                    <Edit2 className="h-3.5 w-3.5" />
+                                                    <PencilSimple className="h-3.5 w-3.5" />
                                                 </button>
 
                                                 {user.id !== currentUserId ? (
@@ -343,7 +343,7 @@ export default function Index({ users, filters, tenants, auth }) {
                                             : 'bg-atlas-surface border-atlas-border text-atlas-secondary hover:text-atlas-primary hover:bg-atlas-hover'
                                     }`}
                                 >
-                                    {isPrev ? <ChevronLeft className="h-4 w-4" /> : isNext ? <ChevronRight className="h-4 w-4" /> : link.label}
+                                    {isPrev ? <CaretLeft className="h-4 w-4" /> : isNext ? <CaretRight className="h-4 w-4" /> : link.label}
                                 </Link>
                             );
                         })}

@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { Head, router } from '@inertiajs/react';
 import { 
-    BarChart2, 
-    Calendar, 
-    RefreshCcw, 
-    TrendingUp, 
-    Zap, 
+    ChartBar, 
+    CalendarBlank, 
+    ArrowsCounterClockwise, 
+    TrendUp, 
+    Lightning, 
     Coins, 
     Database, 
     Clock, 
-    Activity 
-} from 'lucide-react';
+    Pulse 
+} from '@phosphor-icons/react';
 import { 
     AreaChart, Area, BarChart, Bar, LineChart, Line,
     PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid,
@@ -71,7 +71,7 @@ export default function Index({ kpi, charts, filters, tenants, auth }) {
             <div className="border-b border-atlas-border/50 pb-6 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     <div className="h-10 w-10 rounded-lg bg-atlas-accent/10 border border-atlas-accent/25 flex items-center justify-center text-atlas-accent">
-                        <BarChart2 className="h-5 w-5" />
+                        <ChartBar className="h-5 w-5" />
                     </div>
                     <div>
                         <h1 className="text-xl font-bold tracking-tight text-atlas-primary">Analytics</h1>
@@ -101,7 +101,7 @@ export default function Index({ kpi, charts, filters, tenants, auth }) {
 
                     {/* Date From */}
                     <div className="relative">
-                        <Calendar className="absolute left-3 top-2.5 h-3.5 w-3.5 text-atlas-secondary" />
+                        <CalendarBlank className="absolute left-3 top-2.5 h-3.5 w-3.5 text-atlas-secondary" />
                         <input
                             type="date"
                             value={dateFrom}
@@ -112,7 +112,7 @@ export default function Index({ kpi, charts, filters, tenants, auth }) {
 
                     {/* Date To */}
                     <div className="relative">
-                        <Calendar className="absolute left-3 top-2.5 h-3.5 w-3.5 text-atlas-secondary" />
+                        <CalendarBlank className="absolute left-3 top-2.5 h-3.5 w-3.5 text-atlas-secondary" />
                         <input
                             type="date"
                             value={dateTo}
@@ -127,7 +127,7 @@ export default function Index({ kpi, charts, filters, tenants, auth }) {
                         onClick={handleReset}
                         className="px-4 h-9 flex items-center justify-center gap-1.5 rounded-button border border-atlas-border bg-atlas-surface hover:bg-atlas-hover text-atlas-secondary hover:text-atlas-primary transition-colors font-semibold"
                     >
-                        <RefreshCcw className="h-3.5 w-3.5" />
+                        <ArrowsCounterClockwise className="h-3.5 w-3.5" />
                         Reset
                     </button>
                     <button
@@ -146,7 +146,7 @@ export default function Index({ kpi, charts, filters, tenants, auth }) {
                         <StatCard label="Total Requests" value={kpi.total_requests} />
                         <StatCard label="Success Rate" value={kpi.success_rate} suffix="%" status={kpi.success_rate < 90 ? 'warning' : 'default'} />
                         <StatCard label="Cache Hit Rate" value={kpi.cache_hit_rate} suffix="%" />
-                        <StatCard label="Total Cost" value={kpi.total_cost} prefix="$" />
+                        <StatCard label="Total Cost" value={kpi.total_cost} prefix="Rp. " />
                         <StatCard label="Total Tokens" value={kpi.total_tokens} />
                         <StatCard label="Avg Latency" value={kpi.avg_latency_ms} suffix=" ms" />
                     </div>
@@ -156,7 +156,7 @@ export default function Index({ kpi, charts, filters, tenants, auth }) {
                         {/* 1. Requests per Day */}
                         <div className="bg-atlas-card border border-atlas-border rounded-card p-5">
                             <h2 className="text-xs font-bold text-atlas-primary mb-4 flex items-center gap-1.5">
-                                <TrendingUp className="h-4 w-4 text-atlas-accent" />
+                                <TrendUp className="h-4 w-4 text-atlas-accent" />
                                 Volume Request Harian
                             </h2>
                             <div className="h-[260px] w-full">
@@ -181,7 +181,7 @@ export default function Index({ kpi, charts, filters, tenants, auth }) {
                         {/* 2. Success vs Failed */}
                         <div className="bg-atlas-card border border-atlas-border rounded-card p-5">
                             <h2 className="text-xs font-bold text-atlas-primary mb-4 flex items-center gap-1.5">
-                                <Activity className="h-4 w-4 text-atlas-accent" />
+                                <Pulse className="h-4 w-4 text-atlas-accent" />
                                 Rasio Sukses vs Gagal
                             </h2>
                             <div className="h-[260px] w-full">
@@ -256,7 +256,7 @@ export default function Index({ kpi, charts, filters, tenants, auth }) {
                         {/* 5. Token Usage per Day */}
                         <div className="bg-atlas-card border border-atlas-border rounded-card p-5">
                             <h2 className="text-xs font-bold text-atlas-primary mb-4 flex items-center gap-1.5">
-                                <Zap className="h-4 w-4 text-atlas-accent" />
+                                <Lightning className="h-4 w-4 text-atlas-accent" />
                                 Konsumsi Volume Token
                             </h2>
                             <div className="h-[260px] w-full">
@@ -295,7 +295,7 @@ export default function Index({ kpi, charts, filters, tenants, auth }) {
             ) : (
                 <div className="bg-atlas-card border border-atlas-border rounded-card py-16">
                     <EmptyState
-                        icon={BarChart2}
+                        icon={ChartBar}
                         title="Belum ada metrik data"
                         description="Tidak ditemukan log aktivitas transaksi terjemahan untuk rentang periode tanggal yang Anda pilih."
                         action={(

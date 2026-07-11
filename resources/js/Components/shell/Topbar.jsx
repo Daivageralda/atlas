@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { usePage, Link } from '@inertiajs/react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import { Menu, Search, Bell, ChevronDown, User, Settings, LogOut } from 'lucide-react';
+import { List, MagnifyingGlass, Bell, CaretDown, User, Gear, SignOut } from '@phosphor-icons/react';
 import { CommandPalette } from './CommandPalette';
 
 export function Topbar({ onMenuClick }) {
@@ -29,29 +29,25 @@ export function Topbar({ onMenuClick }) {
                     className="md:hidden h-9 w-9 rounded-lg bg-atlas-hover border border-atlas-border flex items-center justify-center text-atlas-secondary hover:text-atlas-primary outline-none focus-visible:ring-2 focus-visible:ring-atlas-accent/40"
                     aria-label="Open sidebar"
                 >
-                    <Menu className="h-5 w-5" />
+                    <List className="h-5 w-5" />
                 </button>
-                <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-atlas-secondary bg-atlas-bg border border-atlas-border rounded-input px-3 py-1.5">
-                    <span className="h-2 w-2 rounded-full bg-atlas-success animate-pulse" />
-                    <span>Global Scope: Admin</span>
-                </div>
             </div>
 
             {/* Right side controls */}
             <div className="flex items-center gap-3">
                 {/* Search placeholder */}
-                <button 
+                <button
                     onClick={() => setPaletteOpen(true)}
                     className="h-9 w-9 rounded-lg bg-atlas-hover border border-atlas-border flex items-center justify-center text-atlas-secondary hover:text-atlas-primary outline-none focus-visible:ring-2 focus-visible:ring-atlas-accent/40"
                     title="Cari (Cmd+K)"
                 >
-                    <Search className="h-4 w-4" />
+                    <MagnifyingGlass className="h-4 w-4" />
                 </button>
 
                 <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
 
                 {/* Notifications */}
-                <button 
+                <button
                     className="h-9 w-9 rounded-lg bg-atlas-hover border border-atlas-border flex items-center justify-center text-atlas-secondary hover:text-atlas-primary outline-none focus-visible:ring-2 focus-visible:ring-atlas-accent/40 relative"
                     title="Notifikasi"
                 >
@@ -68,7 +64,7 @@ export function Topbar({ onMenuClick }) {
                                     {user.name.charAt(0)}
                                 </div>
                                 <span className="hidden sm:inline text-xs font-medium text-atlas-primary max-w-[120px] truncate">{user.name}</span>
-                                <ChevronDown className="h-3 w-3 text-atlas-secondary" />
+                                <CaretDown className="h-3 w-3 text-atlas-secondary" />
                             </button>
                         </DropdownMenu.Trigger>
 
@@ -83,7 +79,7 @@ export function Topbar({ onMenuClick }) {
                                     <p className="text-[10px] text-atlas-secondary truncate mt-0.5">{user.email}</p>
                                 </div>
                                 <DropdownMenu.Separator className="h-px bg-atlas-border my-1" />
-                                
+
                                 <DropdownMenu.Item asChild>
                                     <Link
                                         href="/profile"
@@ -93,13 +89,13 @@ export function Topbar({ onMenuClick }) {
                                         <span>Profil Saya</span>
                                     </Link>
                                 </DropdownMenu.Item>
-                                
+
                                 <DropdownMenu.Item asChild>
                                     <Link
                                         href="/settings"
                                         className="flex items-center gap-2 px-3 py-2 text-xs text-atlas-secondary hover:text-atlas-primary rounded-button outline-none hover:bg-atlas-hover cursor-pointer transition-colors"
                                     >
-                                        <Settings className="h-3.5 w-3.5" />
+                                        <Gear className="h-3.5 w-3.5" />
                                         <span>Pengaturan</span>
                                     </Link>
                                 </DropdownMenu.Item>
@@ -113,7 +109,7 @@ export function Topbar({ onMenuClick }) {
                                         as="button"
                                         className="w-full flex items-center gap-2 px-3 py-2 text-xs text-atlas-danger rounded-button outline-none hover:bg-atlas-danger/10 cursor-pointer transition-colors"
                                     >
-                                        <LogOut className="h-3.5 w-3.5" />
+                                        <SignOut className="h-3.5 w-3.5" />
                                         <span>Keluar Sesi</span>
                                     </Link>
                                 </DropdownMenu.Item>

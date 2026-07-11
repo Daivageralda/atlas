@@ -1,4 +1,87 @@
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap');
+@font-face {
+    font-family: 'CreatoDisplay';
+    src: url('../fonts/CreatoDisplay-Thin.otf') format('opentype');
+    font-weight: 100;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'CreatoDisplay';
+    src: url('../fonts/CreatoDisplay-ThinItalic.otf') format('opentype');
+    font-weight: 100;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'CreatoDisplay';
+    src: url('../fonts/CreatoDisplay-Light.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'CreatoDisplay';
+    src: url('../fonts/CreatoDisplay-LightItalic.otf') format('opentype');
+    font-weight: 300;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'CreatoDisplay';
+    src: url('../fonts/CreatoDisplay-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'CreatoDisplay';
+    src: url('../fonts/CreatoDisplay-RegularItalic.otf') format('opentype');
+    font-weight: 400;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'CreatoDisplay';
+    src: url('../fonts/CreatoDisplay-Medium.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'CreatoDisplay';
+    src: url('../fonts/CreatoDisplay-MediumItalic.otf') format('opentype');
+    font-weight: 500;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'CreatoDisplay';
+    src: url('../fonts/CreatoDisplay-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'CreatoDisplay';
+    src: url('../fonts/CreatoDisplay-BoldItalic.otf') format('opentype');
+    font-weight: 700;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'CreatoDisplay';
+    src: url('../fonts/CreatoDisplay-ExtraBold.otf') format('opentype');
+    font-weight: 800;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'CreatoDisplay';
+    src: url('../fonts/CreatoDisplay-ExtraBoldItalic.otf') format('opentype');
+    font-weight: 800;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'CreatoDisplay';
+    src: url('../fonts/CreatoDisplay-Black.otf') format('opentype');
+    font-weight: 900;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'CreatoDisplay';
+    src: url('../fonts/CreatoDisplay-BlackItalic.otf') format('opentype');
+    font-weight: 900;
+    font-style: italic;
+}
 
 @tailwind base;
 @tailwind components;
@@ -52,7 +135,7 @@
 html, body, #app {
     background-color: var(--color-bg);
     color: var(--color-text-primary);
-    font-family: 'Geist', system-ui, sans-serif;
+    font-family: 'CreatoDisplay', system-ui, sans-serif;
     height: 100%;
 }
 
@@ -67,4 +150,12 @@ html, body, #app {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* Fix high-contrast/white table borders globally */
+table, tr, td, th {
+    border-color: var(--color-border) !important;
+}
+tbody.divide-y > tr {
+    border-color: var(--color-border) !important;
 }

@@ -21,7 +21,7 @@ class TranslationLogDetailResource extends JsonResource
             'retry_count' => $this->retry_count,
             'fallback_used' => (bool) $this->fallback_used,
             'duration_ms' => $this->duration_ms,
-            'estimated_cost' => (float) $this->estimated_cost,
+            'estimated_cost' => (float) $this->cost_estimate * config('services.exchange.usd_to_idr'),
             'cached' => $this->status === 'cached',
             'request_payload' => $this->request_payload,
             'response_payload' => $this->response_payload,

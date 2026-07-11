@@ -9,13 +9,26 @@ use App\Services\AuditLogger;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class SettingsController extends Controller
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
+
+class SettingsController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            new Middleware(function ($request, $next) {
+                if ($request->user() && !$request->user()->isAdmin()) {
+                    abort(403, 'Unauthorized access to settings panel.');
+                }
+                return $next($request);
+            }),
+        ];
+    }
+
     public function index(): Response
     {
-        if (!auth()->user()->isAdmin()) {
-            abort(403, 'Unauthorized access to settings panel.');
-        }
+
 
         $dbSettings = Setting::all()->pluck('value', 'key');
 

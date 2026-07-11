@@ -102,14 +102,17 @@ class TranslationDispatcher
         }
         $model = $config['model'] ?? 'gemini/gemini-3.1-flash-lite';
 
-        // Prepare System translation prompt mapping target languages
-        $prompt = "Anda adalah Asisten Penerjemah Profesional. Terjemahkan teks Bahasa Sumber ({$src}) berikut ke bahasa target dengan kode locale '{$tgt}'.
-Kembalikan HANYA teks hasil terjemahannya saja tanpa tanda kutip pembuka/penutup, tanpa penjelasan pembuka, dan tanpa format tambahan apa pun. Jaga nada dan gaya bahasa agar tetap natural dan profesional.
+        // Fetch dynamic system prompt from settings or use professional default
+        $systemInstruction = \App\Models\Setting::where('key', 'global_prompt')->value('value')
+            ?? "Anda adalah Asisten Penerjemah Profesional. Terjemahkan teks Bahasa Sumber ({src}) berikut ke bahasa target dengan kode locale '{tgt}'. Kembalikan HANYA teks hasil terjemahannya saja tanpa tanda kutip pembuka/penutup, tanpa penjelasan pembuka, dan tanpa format tambahan apa pun. Jaga nada dan gaya bahasa agar tetap natural dan profesional.";
 
-Teks Asli:
-\"\"\"
-{$text}
-\"\"\"";
+        $instruction = str_replace(['{src}', '{tgt}'], [$src, $tgt], $systemInstruction);
+
+        if (strpos($systemInstruction, '{src}') === false && strpos($systemInstruction, '{tgt}') === false) {
+            $instruction .= "\nSource Language: {$src}\nTarget Language: {$tgt}";
+        }
+
+        $prompt = "{$instruction}\n\nOriginal Text:\n\"\"\"\n{$text}\n\"\"\"";
 
         $response = Http::withHeaders([
             'Authorization' => "Bearer {$apiKey}",
@@ -159,6 +162,7 @@ Teks Asli:
         return match ($unit) {
             'per_char' => strlen($text) * $rate,
             'per_token' => ($tokens > 0 ? $tokens : (int) (strlen($text) / 4)) * $rate,
+            'per_1m_token' => (($tokens > 0 ? $tokens : (int) (strlen($text) / 4)) / 1000000.0) * $rate,
             default => 0.0,
         };
     }

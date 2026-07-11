@@ -1,4 +1,3 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import DeleteUserForm from './Partials/DeleteUserForm';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm';
@@ -6,34 +5,33 @@ import UpdateProfileInformationForm from './Partials/UpdateProfileInformationFor
 
 export default function Edit({ mustVerifyEmail, status }) {
     return (
-        <AuthenticatedLayout
-            header={
-                <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                    Profile
-                </h2>
-            }
-        >
-            <Head title="Profile" />
+        <div className="space-y-8 select-none">
+            <Head title="Profil Saya" />
 
-            <div className="py-12">
-                <div className="mx-auto max-w-7xl space-y-6 sm:px-6 lg:px-8">
-                    <div className="bg-white p-4 shadow sm:rounded-lg sm:p-8">
-                        <UpdateProfileInformationForm
-                            mustVerifyEmail={mustVerifyEmail}
-                            status={status}
-                            className="max-w-xl"
-                        />
-                    </div>
-
-                    <div className="bg-white p-4 shadow sm:rounded-lg sm:p-8">
-                        <UpdatePasswordForm className="max-w-xl" />
-                    </div>
-
-                    <div className="bg-white p-4 shadow sm:rounded-lg sm:p-8">
-                        <DeleteUserForm className="max-w-xl" />
-                    </div>
+            {/* Header row */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-atlas-border/50 pb-6">
+                <div>
+                    <h1 className="text-2xl font-bold tracking-tight text-atlas-primary">Profil Saya</h1>
+                    <p className="text-sm text-atlas-secondary mt-1">Ubah informasi akun dan kata sandi Anda</p>
                 </div>
             </div>
-        </AuthenticatedLayout>
+
+            <div className="grid grid-cols-1 gap-6 max-w-4xl">
+                <div className="bg-atlas-card border border-atlas-border rounded-card p-6">
+                    <UpdateProfileInformationForm
+                        mustVerifyEmail={mustVerifyEmail}
+                        status={status}
+                    />
+                </div>
+
+                <div className="bg-atlas-card border border-atlas-border rounded-card p-6">
+                    <UpdatePasswordForm />
+                </div>
+
+                <div className="bg-atlas-card border border-atlas-border rounded-card p-6 border-red-500/20 bg-red-500/[0.01]">
+                    <DeleteUserForm />
+                </div>
+            </div>
+        </div>
     );
 }

@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import { 
-    ScrollText, 
-    Search, 
-    RefreshCcw, 
-    Calendar,
+    Scroll, 
+    MagnifyingGlass, 
+    ArrowsCounterClockwise, 
+    CalendarBlank,
     ArrowRight,
-    HelpCircle,
-    ChevronLeft,
-    ChevronRight
-} from 'lucide-react';
+    Question,
+    CaretLeft,
+    CaretRight
+} from '@phosphor-icons/react';
 import { EmptyState } from '../../Components/ui/EmptyState';
 
 export default function Index({ logs, filters, tenants, auth }) {
@@ -69,7 +69,7 @@ export default function Index({ logs, filters, tenants, auth }) {
             <div className="border-b border-atlas-border/50 pb-6">
                 <div className="flex items-center gap-3">
                     <div className="h-10 w-10 rounded-lg bg-atlas-accent/10 border border-atlas-accent/25 flex items-center justify-center text-atlas-accent">
-                        <ScrollText className="h-5 w-5" />
+                        <Scroll className="h-5 w-5" />
                     </div>
                     <div>
                         <h1 className="text-xl font-bold tracking-tight text-atlas-primary">Translation Logs</h1>
@@ -82,7 +82,7 @@ export default function Index({ logs, filters, tenants, auth }) {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 bg-atlas-card border border-atlas-border rounded-card p-4 text-xs">
                 {/* Search */}
                 <div className="relative lg:col-span-2">
-                    <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-atlas-secondary" />
+                    <MagnifyingGlass className="absolute left-3 top-2.5 h-3.5 w-3.5 text-atlas-secondary" />
                     <input
                         type="text"
                         value={search}
@@ -163,7 +163,7 @@ export default function Index({ logs, filters, tenants, auth }) {
                         onClick={handleReset}
                         className="w-full h-9 flex items-center justify-center gap-1.5 px-3 rounded-button border border-atlas-border bg-atlas-surface hover:bg-atlas-hover text-atlas-secondary hover:text-atlas-primary transition-colors text-xs font-semibold"
                     >
-                        <RefreshCcw className="h-3.5 w-3.5" />
+                        <ArrowsCounterClockwise className="h-3.5 w-3.5" />
                         <span>Reset</span>
                     </button>
                 </div>
@@ -228,7 +228,7 @@ export default function Index({ logs, filters, tenants, auth }) {
                                             {log.duration_ms}ms
                                         </td>
                                         <td className="px-6 py-3.5 text-right font-mono text-[11px] text-atlas-primary">
-                                            {log.estimated_cost > 0 ? `$${log.estimated_cost.toFixed(6)}` : '—'}
+                                            {log.estimated_cost > 0 ? `Rp ${log.estimated_cost.toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}` : '—'}
                                         </td>
                                         <td className="px-6 py-3.5 text-right text-[10px]">
                                             {new Date(log.created_at).toLocaleString('id-ID')}
@@ -241,7 +241,7 @@ export default function Index({ logs, filters, tenants, auth }) {
                 ) : (
                     <div className="py-8">
                         <EmptyState
-                            icon={ScrollText}
+                            icon={Scroll}
                             title="Tidak ada transaksi log"
                             description={Object.values(filters).some(x => !!x) 
                                 ? "Tidak ditemukan data log yang sesuai dengan filter pencarian Anda." 
@@ -282,7 +282,7 @@ export default function Index({ logs, filters, tenants, auth }) {
                                             : 'bg-atlas-surface border-atlas-border text-atlas-secondary hover:text-atlas-primary hover:bg-atlas-hover'
                                     }`}
                                 >
-                                    {isPrev ? <ChevronLeft className="h-4 w-4" /> : isNext ? <ChevronRight className="h-4 w-4" /> : link.label}
+                                    {isPrev ? <CaretLeft className="h-4 w-4" /> : isNext ? <CaretRight className="h-4 w-4" /> : link.label}
                                 </Link>
                             );
                         })}

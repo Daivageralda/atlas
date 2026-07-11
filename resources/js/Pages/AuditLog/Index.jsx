@@ -3,15 +3,15 @@ import { Head, Link, router } from '@inertiajs/react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { 
     FileText, 
-    Search, 
-    RefreshCcw, 
-    Calendar, 
+    MagnifyingGlass, 
+    ArrowsCounterClockwise, 
+    CalendarBlank, 
     Eye, 
     X,
     Lock,
-    ChevronLeft,
-    ChevronRight
-} from 'lucide-react';
+    CaretLeft,
+    CaretRight
+} from '@phosphor-icons/react';
 import { EmptyState } from '../../Components/ui/EmptyState';
 
 // JSON Diff component
@@ -218,7 +218,7 @@ export default function Index({ logs, filters, entity_types, actors }) {
 
                 {/* Date From */}
                 <div className="relative">
-                    <Calendar className="absolute left-3 top-2.5 h-3.5 w-3.5 text-atlas-secondary" />
+                    <CalendarBlank className="absolute left-3 top-2.5 h-3.5 w-3.5 text-atlas-secondary" />
                     <input
                         type="date"
                         value={dateFrom}
@@ -232,7 +232,7 @@ export default function Index({ logs, filters, entity_types, actors }) {
 
                 {/* Date To */}
                 <div className="relative">
-                    <Calendar className="absolute left-3 top-2.5 h-3.5 w-3.5 text-atlas-secondary" />
+                    <CalendarBlank className="absolute left-3 top-2.5 h-3.5 w-3.5 text-atlas-secondary" />
                     <input
                         type="date"
                         value={dateTo}
@@ -250,7 +250,7 @@ export default function Index({ logs, filters, entity_types, actors }) {
                         onClick={handleReset}
                         className="px-4 h-9 flex items-center justify-center gap-1.5 rounded-button border border-atlas-border bg-atlas-surface hover:bg-atlas-hover text-atlas-secondary hover:text-atlas-primary transition-colors font-semibold"
                     >
-                        <RefreshCcw className="h-3.5 w-3.5" />
+                        <ArrowsCounterClockwise className="h-3.5 w-3.5" />
                         Reset Pencarian
                     </button>
                 </div>
@@ -349,7 +349,7 @@ export default function Index({ logs, filters, entity_types, actors }) {
                                             : 'bg-atlas-surface border-atlas-border text-atlas-secondary hover:text-atlas-primary hover:bg-atlas-hover'
                                     }`}
                                 >
-                                    {isPrev ? <ChevronLeft className="h-4 w-4" /> : isNext ? <ChevronRight className="h-4 w-4" /> : link.label}
+                                    {isPrev ? <CaretLeft className="h-4 w-4" /> : isNext ? <CaretRight className="h-4 w-4" /> : link.label}
                                 </Link>
                             );
                         })}

@@ -48,6 +48,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings', ['App\Http\Controllers\Dashboard\SettingsController', 'index'])->name('settings.index');
     Route::put('settings', ['App\Http\Controllers\Dashboard\SettingsController', 'update'])->name('settings.update');
 
+    // API Documentation
+    Route::get('docs', ['App\Http\Controllers\Dashboard\DocumentationController', 'index'])->name('docs.index');
+
     // Profile editing (Breeze default)
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

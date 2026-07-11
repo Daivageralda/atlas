@@ -35,7 +35,7 @@ class AnalyticsController extends Controller
             'total_requests' => (clone $base)->count(),
             'success_rate'   => $this->rate((clone $base), 'success'),
             'cache_hit_rate' => $this->rate((clone $base), 'cached'),
-            'total_cost'     => (float)(clone $base)->sum('cost_estimate'),
+            'total_cost'     => (float)(clone $base)->sum('cost_estimate') * config('services.exchange.usd_to_idr'),
             'total_tokens'   => (int)(clone $base)->sum('token_usage'),
             'avg_latency_ms' => (int)(clone $base)->where('status', '!=', 'cached')->avg('duration_ms'),
         ];
@@ -106,7 +106,7 @@ class AnalyticsController extends Controller
             ->groupBy('date')
             ->orderBy('date')
             ->get()
-            ->map(fn($item) => ['date' => $item->date, 'cost' => (float) $item->cost])
+            ->map(fn($item) => ['date' => $item->date, 'cost' => (float) $item->cost * config('services.exchange.usd_to_idr')])
             ->toArray();
     }
 

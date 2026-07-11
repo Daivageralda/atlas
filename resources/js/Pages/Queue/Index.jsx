@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Head, router, useForm } from '@inertiajs/react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { 
-    Activity, 
-    RefreshCcw, 
+    Pulse, 
+    ArrowsCounterClockwise, 
     Clock, 
     Play, 
-    CheckCircle2, 
+    CheckCircle, 
     XCircle,
-    AlertCircle,
-    Loader2,
+    WarningCircle,
+    CircleNotch,
     Eye,
     X
-} from 'lucide-react';
+} from '@phosphor-icons/react';
 import { EmptyState } from '../../Components/ui/EmptyState';
 
 export default function Index({ jobs, counts }) {
@@ -59,14 +59,14 @@ export default function Index({ jobs, counts }) {
             case 'running':
                 return (
                     <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-[9px] font-bold font-mono tracking-wider bg-atlas-info/10 text-atlas-info border border-atlas-info/20 animate-pulse">
-                        <Loader2 className="h-3 w-3 animate-spin" />
+                        <CircleNotch className="h-3 w-3 animate-spin" />
                         RUNNING
                     </span>
                 );
             case 'success':
                 return (
                     <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-[9px] font-bold font-mono tracking-wider bg-atlas-success/10 text-atlas-success border border-atlas-success/20">
-                        <CheckCircle2 className="h-3 w-3" />
+                        <CheckCircle className="h-3 w-3" />
                         SUCCESS
                     </span>
                 );
@@ -94,7 +94,7 @@ export default function Index({ jobs, counts }) {
             <div className="border-b border-atlas-border/50 pb-6 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                     <div className="h-10 w-10 rounded-lg bg-atlas-accent/10 border border-atlas-accent/25 flex items-center justify-center text-atlas-accent">
-                        <Activity className="h-5 w-5" />
+                        <Pulse className="h-5 w-5" />
                     </div>
                     <div>
                         <h1 className="text-xl font-bold tracking-tight text-atlas-primary">Queue Monitor</h1>
@@ -107,7 +107,7 @@ export default function Index({ jobs, counts }) {
                     className="p-2 rounded-button bg-atlas-card border border-atlas-border text-atlas-secondary hover:text-atlas-primary hover:bg-atlas-hover transition-colors"
                     title="Refresh data antrean"
                 >
-                    <RefreshCcw className="h-4 w-4" />
+                    <ArrowsCounterClockwise className="h-4 w-4" />
                 </button>
             </div>
 
@@ -227,7 +227,7 @@ export default function Index({ jobs, counts }) {
                 ) : (
                     <div className="py-8">
                         <EmptyState
-                            icon={Activity}
+                            icon={Pulse}
                             title="Antrean job kosong"
                             description="Belum ada proses background job yang sedang berjalan atau mengantre di database."
                         />
@@ -242,7 +242,7 @@ export default function Index({ jobs, counts }) {
                     <Dialog.Content className="fixed top-[15%] left-[50%] z-50 w-full max-w-lg translate-x-[-50%] bg-atlas-card border border-atlas-border rounded-card p-6 shadow-2xl focus:outline-none">
                         <div className="flex items-center justify-between mb-5">
                             <div className="flex items-center gap-2 text-atlas-accent">
-                                <Activity className="h-4.5 w-4.5" />
+                                <Pulse className="h-4.5 w-4.5" />
                                 <Dialog.Title className="text-sm font-bold text-atlas-primary">
                                     Detail Background Job
                                 </Dialog.Title>

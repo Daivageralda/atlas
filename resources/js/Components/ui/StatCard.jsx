@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useReducedMotion } from '../../Hooks/useReducedMotion';
+import { Warning, WarningOctagon } from '@phosphor-icons/react';
 
 export function StatCard({ label, value, prefix = '', suffix = '', useCountUp = true, status = 'default' }) {
     const reduced = useReducedMotion();
@@ -30,40 +31,76 @@ export function StatCard({ label, value, prefix = '', suffix = '', useCountUp = 
         return () => clearInterval(timer);
     }, [value, useCountUp, reduced]);
 
-    const getStatusStyles = () => {
-        if (status === 'warning') return 'text-atlas-warning bg-atlas-warning/10 border-atlas-warning/20';
-        if (status === 'danger') return 'text-atlas-danger bg-atlas-danger/10 border-atlas-danger/20';
-        return 'text-atlas-secondary bg-atlas-surface border-atlas-border/50';
+    const getCardStyles = () => {
+        if (status === 'warning') return 'bg-atlas-warning/[0.04] border-atlas-warning/30';
+        if (status === 'danger') return 'bg-atlas-danger/[0.04] border-atlas-danger/30';
+        return 'bg-atlas-card border-atlas-border';
+    };
+
+    const getLabelStyles = () => {
+        if (status === 'warning') return 'text-atlas-warning/80';
+        if (status === 'danger') return 'text-atlas-danger/80';
+        return 'text-atlas-secondary';
+    };
+
+    const getValStyles = () => {
+        if (status === 'warning') return 'text-atlas-warning';
+        if (status === 'danger') return 'text-atlas-danger';
+        return 'text-atlas-primary';
     };
 
     const formatValue = (val) => {
         if (typeof val !== 'number') return val;
+        if (prefix && prefix.startsWith('Rp')) {
+            return val.toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+        }
         if (val % 1 === 0) return val.toLocaleString();
         
-        // If it's a percentage statistic, 1 decimal place is plenty (e.g. 33.3% instead of 33.3000%)
         if (suffix === '%') {
             return val.toFixed(1);
         }
         
-        // If the cost is less than $0.01, show 6 decimal places to capture micro-cost estimates
         return val < 0.01 ? val.toFixed(6) : val.toFixed(4);
     };
 
-    return (
-        <div className="bg-atlas-card border border-atlas-border rounded-card p-5 transition-all duration-300 flex flex-col justify-between h-[120px]">
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-atlas-secondary truncate">
-                {label}
-            </span>
-            <div className="flex items-baseline justify-between mt-2">
-                <span className="text-2xl font-bold tracking-tight text-atlas-primary font-mono select-all">
-                    {prefix}{formatValue(displayVal)}{suffix}
-                </span>
-                
-                {status !== 'default' && (
-                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${getStatusStyles()}`}>
-                        {status.toUpperCase()}
+    const renderValue = () => {
+        if (suffix === ' ms' && typeof displayVal === 'number') {
+            const seconds = displayVal / 1000;
+            const secondsFormatted = seconds.toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+            return (
+                <div className="flex flex-col items-start">
+                    <span className="text-2xl font-bold leading-none">{secondsFormatted} s</span>
+                    <span className="text-[10px] font-semibold text-atlas-secondary mt-1">
+                        {displayVal.toLocaleString('id-ID')} ms
                     </span>
+                </div>
+            );
+        }
+        return (
+            <span className="text-2xl font-bold leading-none">
+                {prefix}{formatValue(displayVal)}{suffix}
+            </span>
+        );
+    };
+
+    return (
+        <div className={`border rounded-card p-5 transition-all duration-300 flex flex-col justify-between h-[120px] relative overflow-hidden ${getCardStyles()}`}>
+            <div className="flex items-center justify-between w-full">
+                <span className={`text-[10px] font-semibold uppercase tracking-wider truncate ${getLabelStyles()}`}>
+                    {label}
+                </span>
+                {status === 'warning' && (
+                    <Warning className="h-4 w-4 text-atlas-warning shrink-0" />
                 )}
+                {status === 'danger' && (
+                    <WarningOctagon className="h-4 w-4 text-atlas-danger shrink-0" />
+                )}
+            </div>
+            
+            <div className="flex items-baseline justify-between mt-auto w-full">
+                <div className={`font-mono select-all truncate w-full ${getValStyles()}`}>
+                    {renderValue()}
+                </div>
             </div>
         </div>
     );

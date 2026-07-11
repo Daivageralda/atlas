@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Head, useForm } from '@inertiajs/react';
 import { 
-    Settings, 
-    Languages, 
-    MessageSquare, 
-    RefreshCcw, 
+    Gear, 
+    Translate, 
+    Chat, 
+    ArrowsCounterClockwise, 
     Plus, 
     X, 
-    AlertTriangle,
-    Save
-} from 'lucide-react';
+    Warning,
+    FloppyDisk
+} from '@phosphor-icons/react';
 
 export default function Index({ settings }) {
     const [activeTab, setActiveTab] = useState('languages'); // 'languages' | 'prompt' | 'retry'
@@ -77,7 +77,7 @@ export default function Index({ settings }) {
             <div className="border-b border-atlas-border/50 pb-6">
                 <div className="flex items-center gap-3">
                     <div className="h-10 w-10 rounded-lg bg-atlas-accent/10 border border-atlas-accent/25 flex items-center justify-center text-atlas-accent">
-                        <Settings className="h-5 w-5" />
+                        <Gear className="h-5 w-5" />
                     </div>
                     <div>
                         <h1 className="text-xl font-bold tracking-tight text-atlas-primary">Settings</h1>
@@ -98,7 +98,7 @@ export default function Index({ settings }) {
                                 : 'bg-transparent border-transparent text-atlas-secondary hover:bg-atlas-card hover:text-atlas-primary'
                         }`}
                     >
-                        <Languages className="h-4 w-4" />
+                        <Translate className="h-4 w-4" />
                         <span>Bahasa Didukung</span>
                     </button>
 
@@ -110,7 +110,7 @@ export default function Index({ settings }) {
                                 : 'bg-transparent border-transparent text-atlas-secondary hover:bg-atlas-card hover:text-atlas-primary'
                         }`}
                     >
-                        <MessageSquare className="h-4 w-4" />
+                        <Chat className="h-4 w-4" />
                         <span>Prompt Global</span>
                     </button>
 
@@ -122,7 +122,7 @@ export default function Index({ settings }) {
                                 : 'bg-transparent border-transparent text-atlas-secondary hover:bg-atlas-card hover:text-atlas-primary'
                         }`}
                     >
-                        <RefreshCcw className="h-4 w-4" />
+                        <ArrowsCounterClockwise className="h-4 w-4" />
                         <span>Retry & Delay</span>
                     </button>
                 </div>
@@ -277,7 +277,7 @@ export default function Index({ settings }) {
             {isDirty && (
                 <div className="fixed bottom-6 left-[18%] right-6 z-30 bg-atlas-card border border-atlas-accent/35 rounded-card p-4 flex items-center justify-between shadow-2xl animate-fade-in">
                     <div className="flex items-center gap-2 text-atlas-accent font-semibold text-xs">
-                        <AlertTriangle className="h-4.5 w-4.5" />
+                        <Warning className="h-4.5 w-4.5" />
                         <span>Terdapat perubahan pengaturan yang belum disimpan!</span>
                     </div>
 
@@ -293,7 +293,7 @@ export default function Index({ settings }) {
                             disabled={processing}
                             className="px-4 py-2 rounded-button bg-atlas-accent text-atlas-bg font-bold hover:bg-atlas-accent/90 transition-all flex items-center gap-1.5 active:scale-95 disabled:opacity-40"
                         >
-                            <Save className="h-3.5 w-3.5" />
+                            <FloppyDisk className="h-3.5 w-3.5" />
                             <span>{processing ? 'Menyimpan...' : 'Simpan Pengaturan'}</span>
                         </button>
                     </div>

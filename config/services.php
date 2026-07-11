@@ -42,4 +42,8 @@ return [
         'next_signing_key'    => env('QSTASH_NEXT_SIGNING_KEY'),
     ],
 
+    'exchange' => [
+        'usd_to_idr' => env('USD_TO_IDR_RATE', 18080.55),
+    ],
+
 ];

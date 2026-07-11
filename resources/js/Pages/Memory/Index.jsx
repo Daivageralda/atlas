@@ -3,16 +3,16 @@ import { Head, useForm, router, Link } from '@inertiajs/react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { 
     Database, 
-    Search, 
-    RefreshCcw, 
-    Edit2, 
+    MagnifyingGlass, 
+    ArrowsCounterClockwise, 
+    PencilSimple, 
     X, 
     ArrowRight,
-    HelpCircle,
-    ChevronLeft,
-    ChevronRight,
-    Languages
-} from 'lucide-react';
+    Question,
+    CaretLeft,
+    CaretRight,
+    Translate
+} from '@phosphor-icons/react';
 import { EmptyState } from '../../Components/ui/EmptyState';
 
 export default function Index({ entries, filters, tenants, auth }) {
@@ -102,7 +102,7 @@ export default function Index({ entries, filters, tenants, auth }) {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-6 gap-3 bg-atlas-card border border-atlas-border rounded-card p-4 text-xs">
                 {/* Search */}
                 <div className="relative md:col-span-2">
-                    <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-atlas-secondary" />
+                    <MagnifyingGlass className="absolute left-3 top-2.5 h-3.5 w-3.5 text-atlas-secondary" />
                     <input
                         type="text"
                         value={search}
@@ -167,7 +167,7 @@ export default function Index({ entries, filters, tenants, auth }) {
                         onClick={handleReset}
                         className="w-full h-9 flex items-center justify-center gap-1.5 px-3 rounded-button border border-atlas-border bg-atlas-surface hover:bg-atlas-hover text-atlas-secondary hover:text-atlas-primary transition-colors text-xs font-semibold"
                     >
-                        <RefreshCcw className="h-3.5 w-3.5" />
+                        <ArrowsCounterClockwise className="h-3.5 w-3.5" />
                         <span>Reset</span>
                     </button>
                 </div>
@@ -221,7 +221,7 @@ export default function Index({ entries, filters, tenants, auth }) {
                                                 className="p-1.5 text-atlas-secondary hover:text-atlas-accent hover:bg-atlas-surface rounded transition-colors"
                                                 title="Koreksi manual terjemahan"
                                             >
-                                                <Edit2 className="h-3.5 w-3.5" />
+                                                <PencilSimple className="h-3.5 w-3.5" />
                                             </button>
                                         </td>
                                     </tr>
@@ -273,7 +273,7 @@ export default function Index({ entries, filters, tenants, auth }) {
                                             : 'bg-atlas-surface border-atlas-border text-atlas-secondary hover:text-atlas-primary hover:bg-atlas-hover'
                                     }`}
                                 >
-                                    {isPrev ? <ChevronLeft className="h-4 w-4" /> : isNext ? <ChevronRight className="h-4 w-4" /> : link.label}
+                                    {isPrev ? <CaretLeft className="h-4 w-4" /> : isNext ? <CaretRight className="h-4 w-4" /> : link.label}
                                 </Link>
                             );
                         })}
@@ -288,7 +288,7 @@ export default function Index({ entries, filters, tenants, auth }) {
                     <Dialog.Content className="fixed top-[15%] left-[50%] z-50 w-full max-w-lg translate-x-[-50%] bg-atlas-card border border-atlas-border rounded-card p-6 shadow-2xl focus:outline-none">
                         <div className="flex items-center justify-between mb-5">
                             <div className="flex items-center gap-2 text-atlas-accent">
-                                <Languages className="h-4.5 w-4.5" />
+                                <Translate className="h-4.5 w-4.5" />
                                 <Dialog.Title className="text-sm font-bold text-atlas-primary">
                                     Koreksi Terjemahan Manual
                                 </Dialog.Title>

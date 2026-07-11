@@ -59,7 +59,7 @@ class TenantController extends Controller
             'apiKeys'  => ApiKeyResource::collection($tenant->apiKeys()->latest()->get()),
             'overview' => [
                 'total_translations' => TranslationLog::where('tenant_id', $tenant->id)->count(),
-                'total_cost'         => (float) TranslationLog::where('tenant_id', $tenant->id)->sum('cost_estimate'),
+                'total_cost'         => (float) TranslationLog::where('tenant_id', $tenant->id)->sum('cost_estimate') * config('services.exchange.usd_to_idr'),
                 'cache_hit_count'    => TranslationLog::where('tenant_id', $tenant->id)->where('status', 'cached')->count(),
             ],
         ]);

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Copy, Check } from 'lucide-react';
+import { Copy, Check } from '@phosphor-icons/react';
 
 export function CodeBlock({ code, className = '' }) {
     const [copied, setCopied] = useState(false);

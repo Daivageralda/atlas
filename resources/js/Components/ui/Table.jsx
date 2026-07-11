@@ -12,7 +12,7 @@ export function Table({ children, className = '' }) {
 
 export function TableHeader({ children, className = '' }) {
     return (
-        <thead className={`border-b border-atlas-border bg-atlas-surface text-[10px] uppercase font-bold tracking-wider text-atlas-secondary ${className}`}>
+        <thead className={`border-b border-atlas-border/30 bg-atlas-surface text-[10px] uppercase font-bold tracking-wider text-atlas-secondary ${className}`}>
             {children}
         </thead>
     );
@@ -20,7 +20,7 @@ export function TableHeader({ children, className = '' }) {
 
 export function TableBody({ children, className = '' }) {
     return (
-        <tbody className={`divide-y divide-atlas-border/50 text-atlas-secondary ${className}`}>
+        <tbody className={`text-atlas-secondary ${className}`}>
             {children}
         </tbody>
     );
@@ -29,7 +29,7 @@ export function TableBody({ children, className = '' }) {
 export function TableRow({ children, className = '', ...props }) {
     return (
         <tr 
-            className={`hover:bg-atlas-hover/30 transition-colors duration-150 ${className}`}
+            className={`border-b border-atlas-border/20 last:border-b-0 hover:bg-atlas-hover/30 transition-colors duration-150 ${className}`}
             {...props}
         >
             {children}

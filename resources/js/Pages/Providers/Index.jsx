@@ -5,15 +5,15 @@ import * as AlertDialog from '@radix-ui/react-alert-dialog';
 import * as Switch from '@radix-ui/react-switch';
 import { 
     Plus, 
-    Edit2, 
-    Trash2, 
+    PencilSimple, 
+    Trash, 
     X, 
-    Server, 
-    Activity, 
+    HardDrive, 
+    Pulse, 
     Coins, 
-    Settings,
+    Gear,
     Check
-} from 'lucide-react';
+} from '@phosphor-icons/react';
 import { EmptyState } from '../../Components/ui/EmptyState';
 import { SpotlightCard } from '../../Components/decorative/SpotlightCard';
 
@@ -31,6 +31,9 @@ export default function Index({ providers }) {
         pricing_formula: {
             unit: 'per_token',
             rate: 0.0001
+        },
+        config: {
+            model: ''
         },
         is_active: true
     });
@@ -53,6 +56,9 @@ export default function Index({ providers }) {
             pricing_formula: {
                 unit: provider.pricing_formula?.unit || 'per_token',
                 rate: provider.pricing_formula?.rate || 0.0001
+            },
+            config: {
+                model: provider.config?.model || ''
             },
             is_active: provider.is_active
         });
@@ -140,7 +146,7 @@ export default function Index({ providers }) {
                                 <div className="space-y-4">
                                     <div className="flex items-center gap-3">
                                         <div className="h-9 w-9 rounded-lg bg-atlas-surface border border-atlas-border flex items-center justify-center text-atlas-secondary">
-                                            <Server className="h-4.5 w-4.5" />
+                                            <HardDrive className="h-4.5 w-4.5" />
                                         </div>
                                         <div>
                                             <h3 className="text-sm font-bold text-atlas-primary">{prov.name}</h3>
@@ -151,13 +157,28 @@ export default function Index({ providers }) {
                                     </div>
 
                                     <div className="space-y-2.5 pt-4 border-t border-atlas-border/40 text-xs text-atlas-secondary">
+                                        {/* Target Model */}
+                                        <div className="flex items-center gap-2">
+                                            <Gear className="h-3.5 w-3.5 text-atlas-secondary" />
+                                            <span>Model Target: </span>
+                                            <span className="font-mono text-atlas-primary bg-atlas-surface border border-atlas-border px-1.5 py-0.5 rounded text-[10px]">
+                                                {prov.config?.model || 'default'}
+                                            </span>
+                                        </div>
+
                                         {/* Pricing Formula */}
                                         <div className="flex items-center gap-2">
                                             <Coins className="h-3.5 w-3.5 text-atlas-secondary" />
-                                            <span>Formula: </span>
+                                            <span>Formula Tarif: </span>
                                             <span className="font-mono text-atlas-primary bg-atlas-surface border border-atlas-border px-1.5 py-0.5 rounded text-[10px]">
                                                 {prov.pricing_formula 
-                                                    ? `${prov.pricing_formula.rate} per_${prov.pricing_formula.unit === 'per_token' ? 'token' : 'char'}`
+                                                    ? `$${prov.pricing_formula.rate} / ${
+                                                        prov.pricing_formula.unit === 'per_1m_token'
+                                                            ? '1M tokens'
+                                                            : prov.pricing_formula.unit === 'per_token'
+                                                            ? 'token'
+                                                            : 'karakter'
+                                                      }`
                                                     : '—'
                                                 }
                                             </span>
@@ -166,7 +187,7 @@ export default function Index({ providers }) {
                                         {/* Toggle Active Switch */}
                                         <div className="flex items-center justify-between pt-1">
                                             <div className="flex items-center gap-2">
-                                                <Activity className="h-3.5 w-3.5 text-atlas-secondary" />
+                                                <Pulse className="h-3.5 w-3.5 text-atlas-secondary" />
                                                 <span>Status Integrasi</span>
                                             </div>
                                             <div className="flex items-center gap-2.5">
@@ -191,7 +212,7 @@ export default function Index({ providers }) {
                                     onClick={() => openEdit(prov)}
                                     className="h-8 px-3 rounded-button border border-atlas-border bg-atlas-surface hover:bg-atlas-hover text-[11px] font-semibold text-atlas-secondary hover:text-atlas-primary flex items-center gap-1 transition-colors"
                                 >
-                                    <Edit2 className="h-3.5 w-3.5" />
+                                    <PencilSimple className="h-3.5 w-3.5" />
                                     <span>Ubah</span>
                                 </button>
                                 <button
@@ -199,7 +220,7 @@ export default function Index({ providers }) {
                                     disabled={prov.is_active}
                                     className="h-8 px-3 rounded-button border border-atlas-border bg-atlas-surface hover:bg-atlas-danger/10 text-[11px] font-semibold text-atlas-secondary hover:text-atlas-danger flex items-center gap-1 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
                                 >
-                                    <Trash2 className="h-3.5 w-3.5" />
+                                    <Trash className="h-3.5 w-3.5" />
                                     <span>Hapus</span>
                                 </button>
                             </div>
@@ -241,19 +262,37 @@ export default function Index({ providers }) {
                         </div>
 
                         <form onSubmit={handleFormSubmit} className="space-y-4 text-xs">
-                            <div>
-                                <label className="block text-[10px] uppercase font-bold tracking-wider text-atlas-secondary mb-1.5">
-                                    Nama Engine / Model
-                                </label>
-                                <input
-                                    type="text"
-                                    required
-                                    value={data.name}
-                                    onChange={(e) => setData('name', e.target.value)}
-                                    placeholder="Contoh: SumoPod, Gemini Flash"
-                                    className="w-full px-3 py-2 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary outline-none focus:border-atlas-accent/50"
-                                />
-                                {errors.name && <p className="text-atlas-danger mt-1 font-mono text-[10px]">{errors.name}</p>}
+                            <div className="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label className="block text-[10px] uppercase font-bold tracking-wider text-atlas-secondary mb-1.5">
+                                        Nama Engine
+                                    </label>
+                                    <input
+                                        type="text"
+                                        required
+                                        value={data.name}
+                                        onChange={(e) => setData('name', e.target.value)}
+                                        placeholder="Contoh: SumoPod, Gemini"
+                                        className="w-full px-3 py-2 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary outline-none focus:border-atlas-accent/50"
+                                    />
+                                    {errors.name && <p className="text-atlas-danger mt-1 font-mono text-[10px]">{errors.name}</p>}
+                                </div>
+                                <div>
+                                    <label className="block text-[10px] uppercase font-bold tracking-wider text-atlas-secondary mb-1.5">
+                                        Prefix / Target Model
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={data.config.model}
+                                        onChange={(e) => setData('config', {
+                                            ...data.config,
+                                            model: e.target.value
+                                        })}
+                                        placeholder="gemini/gemini-3.1-flash"
+                                        className="w-full px-3 py-2 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary outline-none focus:border-atlas-accent/50"
+                                    />
+                                    {errors['config.model'] && <p className="text-atlas-danger mt-1 font-mono text-[10px]">{errors['config.model']}</p>}
+                                </div>
                             </div>
 
                             <div>
@@ -320,8 +359,9 @@ export default function Index({ providers }) {
                                             })}
                                             className="w-full bg-atlas-card border border-atlas-border rounded-input px-2 py-1 text-atlas-primary outline-none text-xs focus:border-atlas-accent/50"
                                         >
-                                            <option value="per_token">Per Token</option>
-                                            <option value="per_char">Per Karakter</option>
+                                            <option value="per_1m_token">Per 1M Token (USD)</option>
+                                            <option value="per_token">Per Token (USD)</option>
+                                            <option value="per_char">Per Karakter (USD)</option>
                                         </select>
                                     </div>
                                     <div>

@@ -14,9 +14,26 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UserInvitedMail;
 
-class UserController extends Controller
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
+
+class UserController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            new Middleware(function ($request, $next) {
+                if ($request->user() && !$request->user()->isAdmin()) {
+                    abort(403, 'Unauthorized access to user management.');
+                }
+                return $next($request);
+            }),
+        ];
+    }
+
     public function index(Request $request)
     {
         $users = User::with('scopedTenant')
@@ -49,8 +66,13 @@ class UserController extends Controller
             'status'       => 'active',
         ]);
 
-        // Dev mock: log temp credentials to log output for verification
-        Log::info("Invited user {$user->email} with temporary password: {$tempPassword}");
+        try {
+            Mail::to($user->email)->send(new UserInvitedMail($user, $tempPassword));
+        } catch (\Exception $e) {
+            Log::error("Failed to send invitation email to {$user->email}: " . $e->getMessage());
+            // Log backup to ensure password can still be retrieved if mail server fails
+            Log::info("Backup: Invited user {$user->email} with temporary password: {$tempPassword}");
+        }
 
         AuditLogger::log($user, 'created', [], $user->only('id', 'name', 'email', 'role'));
 

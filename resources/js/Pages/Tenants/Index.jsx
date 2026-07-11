@@ -4,16 +4,16 @@ import * as Dialog from '@radix-ui/react-dialog';
 import * as AlertDialog from '@radix-ui/react-alert-dialog';
 import { 
     Plus, 
-    Search, 
-    Edit2, 
-    Trash2, 
+    MagnifyingGlass, 
+    PencilSimple, 
+    Trash, 
     X, 
     ArrowRight, 
-    Building2,
+    Buildings,
     CheckCircle,
-    ChevronLeft,
-    ChevronRight
-} from 'lucide-react';
+    CaretLeft,
+    CaretRight
+} from '@phosphor-icons/react';
 
 import { EmptyState } from '../../Components/ui/EmptyState';
 
@@ -111,7 +111,7 @@ export default function Index({ tenants, filters, auth }) {
             {/* Filters */}
             <div className="flex flex-col sm:flex-row gap-3 items-center justify-between bg-atlas-card border border-atlas-border rounded-input p-4">
                 <div className="relative w-full sm:max-w-xs">
-                    <Search className="absolute left-3 top-2.5 h-4 w-4 text-atlas-secondary" />
+                    <MagnifyingGlass className="absolute left-3 top-2.5 h-4 w-4 text-atlas-secondary" />
                     <input
                         type="text"
                         placeholder="Cari nama tenant..."
@@ -155,7 +155,7 @@ export default function Index({ tenants, filters, auth }) {
                                                 href={route('tenants.show', tenant.id)}
                                                 className="hover:text-atlas-accent flex items-center gap-1.5"
                                             >
-                                                <Building2 className="h-4 w-4 text-atlas-secondary" />
+                                                <Buildings className="h-4 w-4 text-atlas-secondary" />
                                                 <span>{tenant.name}</span>
                                             </Link>
                                         </td>
@@ -184,7 +184,7 @@ export default function Index({ tenants, filters, auth }) {
                                                     className="p-1.5 text-atlas-secondary hover:text-atlas-primary rounded hover:bg-atlas-surface transition-colors"
                                                     title="Edit Tenant"
                                                 >
-                                                    <Edit2 className="h-3.5 w-3.5" />
+                                                    <PencilSimple className="h-3.5 w-3.5" />
                                                 </button>
                                                 {isAdmin && (
                                                     <button
@@ -192,7 +192,7 @@ export default function Index({ tenants, filters, auth }) {
                                                         className="p-1.5 text-atlas-secondary hover:text-atlas-danger rounded hover:bg-atlas-danger/10 transition-colors"
                                                         title="Hapus Tenant"
                                                     >
-                                                        <Trash2 className="h-3.5 w-3.5" />
+                                                        <Trash className="h-3.5 w-3.5" />
                                                     </button>
                                                 )}
                                                 <Link
@@ -212,7 +212,7 @@ export default function Index({ tenants, filters, auth }) {
                 ) : (
                     <div className="py-8">
                         <EmptyState
-                            icon={Building2}
+                            icon={Buildings}
                             title="Belum ada Tenant terdaftar"
                             description="Daftarkan project tenant pengakses API gateway untuk memulai monitoring log transaksi terjemahan."
                             action={
@@ -242,14 +242,14 @@ export default function Index({ tenants, filters, auth }) {
                                 disabled={!tenants.links.prev}
                                 className={`h-8 w-8 rounded bg-atlas-surface border border-atlas-border flex items-center justify-center text-atlas-secondary ${!tenants.links.prev ? 'opacity-40 cursor-not-allowed' : 'hover:bg-atlas-hover'}`}
                             >
-                                <ChevronLeft className="h-4 w-4" />
+                                <CaretLeft className="h-4 w-4" />
                             </Link>
                             <Link
                                 href={tenants.links.next || '#'}
                                 disabled={!tenants.links.next}
                                 className={`h-8 w-8 rounded bg-atlas-surface border border-atlas-border flex items-center justify-center text-atlas-secondary ${!tenants.links.next ? 'opacity-40 cursor-not-allowed' : 'hover:bg-atlas-hover'}`}
                             >
-                                <ChevronRight className="h-4 w-4" />
+                                <CaretRight className="h-4 w-4" />
                             </Link>
                         </div>
                     </div>

@@ -38,7 +38,7 @@ export default {
                 badge:  'var(--radius-badge)',
             },
             fontFamily: {
-                sans: ['Geist', ...defaultTheme.fontFamily.sans],
+                sans: ['CreatoDisplay', ...defaultTheme.fontFamily.sans],
                 mono: ['Geist Mono', 'monospace'],
             },
         },

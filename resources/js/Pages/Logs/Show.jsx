@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import { Head, Link } from '@inertiajs/react';
 import { 
-    ChevronLeft, 
+    CaretLeft, 
     Copy, 
     Check, 
-    Server, 
+    HardDrive, 
     Clock, 
-    Activity, 
+    Pulse, 
     Coins, 
     ArrowRight, 
     FileText,
-    AlertCircle,
-    Building2,
+    WarningCircle,
+    Buildings,
     Key
-} from 'lucide-react';
+} from '@phosphor-icons/react';
 
 export default function Show({ log }) {
     const [copiedRequest, setCopiedRequest] = useState(false);
@@ -37,7 +37,7 @@ export default function Show({ log }) {
                     href={route('logs.index')}
                     className="inline-flex items-center gap-1.5 text-xs text-atlas-secondary hover:text-atlas-accent font-medium mb-3 transition-colors"
                 >
-                    <ChevronLeft className="h-4 w-4" />
+                    <CaretLeft className="h-4 w-4" />
                     <span>Kembali ke Logs</span>
                 </Link>
                 <div className="flex items-center justify-between">
@@ -75,7 +75,7 @@ export default function Show({ log }) {
                                 <span>Estimasi Biaya</span>
                             </p>
                             <p className="font-mono text-base font-bold text-atlas-primary">
-                                {log.estimated_cost > 0 ? `$${log.estimated_cost.toFixed(6)}` : '—'}
+                                {log.estimated_cost > 0 ? `Rp ${log.estimated_cost.toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}` : '—'}
                             </p>
                         </div>
 
@@ -91,7 +91,7 @@ export default function Show({ log }) {
                         {/* Retries */}
                         <div className="bg-atlas-card border border-atlas-border rounded-card p-4">
                             <p className="text-[10px] text-atlas-secondary uppercase font-bold tracking-wider mb-1 flex items-center gap-1">
-                                <Activity className="h-3.5 w-3.5" />
+                                <Pulse className="h-3.5 w-3.5" />
                                 <span>Retries Attempt</span>
                             </p>
                             <p className="font-mono text-base font-bold text-atlas-primary">{log.retry_count}</p>
@@ -100,7 +100,7 @@ export default function Show({ log }) {
                         {/* Fallback Used */}
                         <div className="bg-atlas-card border border-atlas-border rounded-card p-4">
                             <p className="text-[10px] text-atlas-secondary uppercase font-bold tracking-wider mb-1 flex items-center gap-1">
-                                <Server className="h-3.5 w-3.5" />
+                                <HardDrive className="h-3.5 w-3.5" />
                                 <span>Fallback Engine</span>
                             </p>
                             <p className="font-mono text-base font-bold text-atlas-primary">{log.fallback_used ? 'YES' : 'NO'}</p>
@@ -114,7 +114,7 @@ export default function Show({ log }) {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div className="space-y-1.5 p-3 bg-atlas-surface border border-atlas-border/50 rounded-input">
                                 <span className="text-[9px] uppercase font-bold tracking-wider text-atlas-secondary flex items-center gap-1">
-                                    <Building2 className="h-3 w-3" />
+                                    <Buildings className="h-3 w-3" />
                                     <span>Tenant Pemilik</span>
                                 </span>
                                 <p className="font-semibold text-atlas-primary">{log.tenant_name}</p>
@@ -150,7 +150,7 @@ export default function Show({ log }) {
                     {/* Error Alerts */}
                     {log.status === 'failed' && log.error_message && (
                         <div className="bg-atlas-danger/10 border border-atlas-danger/30 rounded-card p-5 flex gap-3 text-xs">
-                            <AlertCircle className="h-5 w-5 text-atlas-danger flex-shrink-0 mt-0.5" />
+                            <WarningCircle className="h-5 w-5 text-atlas-danger flex-shrink-0 mt-0.5" />
                             <div className="space-y-1">
                                 <h4 className="font-bold text-atlas-danger">Error Execution</h4>
                                 <p className="text-atlas-secondary font-mono leading-relaxed text-[11px]">

@@ -2,35 +2,35 @@ import React, { useEffect, useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { router } from '@inertiajs/react';
 import { 
-    Search, 
-    LayoutDashboard, 
-    Building2, 
-    KeyRound, 
-    Boxes, 
-    ScrollText, 
+    MagnifyingGlass, 
+    SquaresFour, 
+    Buildings, 
+    Key, 
+    Package, 
+    Scroll, 
     Database, 
-    ListTodo, 
-    BarChart2, 
+    ListChecks, 
+    ChartBar, 
     Users, 
-    ClipboardList,
-    Settings
-} from 'lucide-react';
+    ClipboardText,
+    Gear
+} from '@phosphor-icons/react';
 
 export function CommandPalette({ open, onClose }) {
     const [query, setQuery] = useState('');
 
     const commands = [
-        { icon: LayoutDashboard, label: 'Buka Dashboard', href: '/dashboard', keys: 'dash db' },
-        { icon: Building2, label: 'Kelola Tenants', href: '/tenants', keys: 'tenant project client' },
-        { icon: KeyRound, label: 'Kelola API Keys', href: '/api-keys', keys: 'api key token auth' },
-        { icon: Boxes, label: 'Daftar AI Providers', href: '/providers', keys: 'provider model sumopod llm' },
-        { icon: ScrollText, label: 'Lihat Transaksi Logs', href: '/logs', keys: 'log history transaction' },
+        { icon: SquaresFour, label: 'Buka Dashboard', href: '/dashboard', keys: 'dash db' },
+        { icon: Buildings, label: 'Kelola Tenants', href: '/tenants', keys: 'tenant project client' },
+        { icon: Key, label: 'Kelola API Keys', href: '/api-keys', keys: 'api key token auth' },
+        { icon: Package, label: 'Daftar AI Providers', href: '/providers', keys: 'provider model sumopod llm' },
+        { icon: Scroll, label: 'Lihat Transaksi Logs', href: '/logs', keys: 'log history transaction' },
         { icon: Database, label: 'Translation Memory', href: '/memory', keys: 'memory cache tm vocab' },
-        { icon: ListTodo, label: 'Monitoring Queue', href: '/queue', keys: 'queue job background async' },
-        { icon: BarChart2, label: 'Statistik Performa', href: '/analytics', keys: 'analytics stats charts cost' },
+        { icon: ListChecks, label: 'Monitoring Queue', href: '/queue', keys: 'queue job background async' },
+        { icon: ChartBar, label: 'Statistik Performa', href: '/analytics', keys: 'analytics stats charts cost' },
         { icon: Users, label: 'Kelola Pengguna', href: '/users', keys: 'user team role permission' },
-        { icon: ClipboardList, label: 'Audit Log System', href: '/audit-log', keys: 'audit security log config' },
-        { icon: Settings, label: 'Pengaturan Gateway', href: '/settings', keys: 'setting config language pricing' },
+        { icon: ClipboardText, label: 'Audit Log System', href: '/audit-log', keys: 'audit security log config' },
+        { icon: Gear, label: 'Pengaturan Gateway', href: '/settings', keys: 'setting config language pricing' },
     ];
 
     const filtered = commands.filter(cmd => 
@@ -53,7 +53,7 @@ export function CommandPalette({ open, onClose }) {
                 <Dialog.Content className="fixed top-[20%] left-[50%] z-50 w-full max-w-[550px] translate-x-[-50%] bg-atlas-card border border-atlas-border rounded-card p-0 shadow-2xl focus:outline-none transition-transform duration-[var(--duration-fast)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95">
                     {/* Search Bar Input */}
                     <div className="flex items-center gap-3 px-4 py-3.5 border-b border-atlas-border">
-                        <Search className="h-5 w-5 text-atlas-secondary flex-shrink-0" />
+                        <MagnifyingGlass className="h-5 w-5 text-atlas-secondary flex-shrink-0" />
                         <input
                             type="text"
                             placeholder="Ketik command atau cari halaman..."

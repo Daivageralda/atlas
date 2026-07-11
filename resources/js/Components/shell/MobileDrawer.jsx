@@ -1,6 +1,6 @@
 import React from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
-import { X } from 'lucide-react';
+import { X } from '@phosphor-icons/react';
 import { Sidebar } from './Sidebar';
 
 export function MobileDrawer({ open, onClose }) {

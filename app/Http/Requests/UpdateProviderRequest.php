@@ -19,9 +19,11 @@ class UpdateProviderRequest extends FormRequest
             'api_url' => ['sometimes', 'required', 'url'],
             'api_key_plain' => ['nullable', 'string'],
             'pricing_formula' => ['nullable', 'array'],
-            'pricing_formula.unit' => ['required_with:pricing_formula', 'in:per_char,per_token'],
+            'pricing_formula.unit' => ['required_with:pricing_formula', 'in:per_char,per_token,per_1m_token'],
             'pricing_formula.rate' => ['required_with:pricing_formula', 'numeric', 'min:0'],
             'is_active' => ['sometimes', 'required', 'boolean'],
+            'config' => ['nullable', 'array'],
+            'config.model' => ['nullable', 'string', 'max:150'],
         ];
     }
 }

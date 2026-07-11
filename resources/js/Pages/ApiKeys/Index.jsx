@@ -5,16 +5,16 @@ import * as AlertDialog from '@radix-ui/react-alert-dialog';
 import { 
     Key, 
     Plus, 
-    Trash2, 
-    RefreshCw, 
-    Ban, 
+    Trash, 
+    ArrowsCounterClockwise, 
+    Prohibit, 
     Copy, 
     Check, 
     X, 
-    ChevronLeft,
-    Building2,
-    ShieldAlert
-} from 'lucide-react';
+    CaretLeft,
+    Buildings,
+    ShieldWarning
+} from '@phosphor-icons/react';
 import { EmptyState } from '../../Components/ui/EmptyState';
 
 export default function Index({ tenant, apiKeys, tenants, auth, flash }) {
@@ -91,7 +91,7 @@ export default function Index({ tenant, apiKeys, tenants, auth, flash }) {
                         href={route('tenants.show', tenant.id)}
                         className="inline-flex items-center gap-1.5 text-xs text-atlas-secondary hover:text-atlas-accent font-medium mb-3 transition-colors"
                     >
-                        <ChevronLeft className="h-4 w-4" />
+                        <CaretLeft className="h-4 w-4" />
                         <span>Kembali ke Tenant {tenant.name}</span>
                     </Link>
                 )}
@@ -172,14 +172,14 @@ export default function Index({ tenant, apiKeys, tenants, auth, flash }) {
                                                             className="p-1.5 text-atlas-secondary hover:text-atlas-primary rounded hover:bg-atlas-surface transition-colors"
                                                             title="Regenerate Key"
                                                         >
-                                                            <RefreshCw className="h-3.5 w-3.5" />
+                                                            <ArrowsCounterClockwise className="h-3.5 w-3.5" />
                                                         </button>
                                                         <button
                                                             onClick={() => setRevokeTarget(key)}
                                                             className="p-1.5 text-atlas-secondary hover:text-atlas-warning rounded hover:bg-atlas-warning/10 transition-colors"
                                                             title="Nonaktifkan Key"
                                                         >
-                                                            <Ban className="h-3.5 w-3.5" />
+                                                            <Prohibit className="h-3.5 w-3.5" />
                                                         </button>
                                                     </>
                                                 )}
@@ -189,7 +189,7 @@ export default function Index({ tenant, apiKeys, tenants, auth, flash }) {
                                                         className="p-1.5 text-atlas-secondary hover:text-atlas-danger rounded hover:bg-atlas-danger/10 transition-colors"
                                                         title="Hapus Key"
                                                     >
-                                                        <Trash2 className="h-3.5 w-3.5" />
+                                                        <Trash className="h-3.5 w-3.5" />
                                                     </button>
                                                 )}
                                             </div>
@@ -316,7 +316,7 @@ export default function Index({ tenant, apiKeys, tenants, auth, flash }) {
                         className="fixed top-[20%] left-[50%] z-50 w-full max-w-lg translate-x-[-50%] bg-atlas-card border border-atlas-border rounded-card p-6 shadow-2xl focus:outline-none"
                     >
                         <div className="flex items-center gap-2 mb-4 text-atlas-accent">
-                            <ShieldAlert className="h-5 w-5 animate-pulse" />
+                            <ShieldWarning className="h-5 w-5 animate-pulse" />
                             <Dialog.Title className="text-sm font-bold text-atlas-primary">
                                 API Key Berhasil Dibuat
                             </Dialog.Title>

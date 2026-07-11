@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
 import * as Tabs from '@radix-ui/react-tabs';
 import { 
-    ChevronLeft, 
-    Building2, 
+    CaretLeft, 
+    Buildings, 
     Key, 
-    History, 
-    BarChart3, 
-    Settings,
-    Activity,
-    AlertCircle,
+    ClockCounterClockwise, 
+    ChartBar, 
+    Gear,
+    Pulse,
+    WarningCircle,
     UserCheck
-} from 'lucide-react';
+} from '@phosphor-icons/react';
 import { StatCard } from '../../Components/ui/StatCard';
 import { EmptyState } from '../../Components/ui/EmptyState';
 
@@ -41,13 +41,13 @@ export default function Show({ tenant, apiKeys, overview, auth }) {
                     href="/tenants"
                     className="inline-flex items-center gap-1.5 text-xs text-atlas-secondary hover:text-atlas-accent font-medium mb-3 transition-colors"
                 >
-                    <ChevronLeft className="h-4 w-4" />
+                    <CaretLeft className="h-4 w-4" />
                     <span>Kembali ke Tenants</span>
                 </Link>
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <div className="h-10 w-10 rounded-lg bg-atlas-accent/10 border border-atlas-accent/25 flex items-center justify-center text-atlas-accent">
-                            <Building2 className="h-5 w-5" />
+                            <Buildings className="h-5 w-5" />
                         </div>
                         <div>
                             <h1 className="text-xl font-bold tracking-tight text-atlas-primary">{tenant.name}</h1>
@@ -113,7 +113,7 @@ export default function Show({ tenant, apiKeys, overview, auth }) {
                 <Tabs.Content value="overview" className="space-y-6 focus:outline-none">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <StatCard label="Total Translations" value={overview.total_translations} />
-                        <StatCard label="Total Cost" value={overview.total_cost} prefix="$" />
+                        <StatCard label="Total Cost" value={overview.total_cost} prefix="Rp. " />
                         <StatCard label="Cache Hits" value={overview.cache_hit_count} />
                     </div>
 
@@ -256,7 +256,7 @@ export default function Show({ tenant, apiKeys, overview, auth }) {
                 {/* TAB LOGS (Redirect link) */}
                 <Tabs.Content value="logs" className="focus:outline-none">
                     <div className="bg-atlas-card border border-atlas-border rounded-card p-6 flex flex-col items-center justify-center py-16 text-center gap-4">
-                        <History className="h-10 w-10 text-atlas-secondary" />
+                        <ClockCounterClockwise className="h-10 w-10 text-atlas-secondary" />
                         <div>
                             <h3 className="text-sm font-bold text-atlas-primary">Logs Transaksi Terjemahan</h3>
                             <p className="text-xs text-atlas-secondary mt-1 max-w-sm leading-relaxed">
@@ -268,7 +268,7 @@ export default function Show({ tenant, apiKeys, overview, auth }) {
                             className="h-9 px-4 rounded-button bg-atlas-accent text-atlas-bg text-xs font-semibold hover:bg-atlas-accent/90 transition-all flex items-center gap-1.5"
                         >
                             <span>Periksa Logs Tenant</span>
-                            <ChevronLeft className="h-4 w-4 rotate-180" />
+                            <CaretLeft className="h-4 w-4 rotate-180" />
                         </Link>
                     </div>
                 </Tabs.Content>
@@ -276,7 +276,7 @@ export default function Show({ tenant, apiKeys, overview, auth }) {
                 {/* TAB ANALYTICS (Redirect link) */}
                 <Tabs.Content value="analytics" className="focus:outline-none">
                     <div className="bg-atlas-card border border-atlas-border rounded-card p-6 flex flex-col items-center justify-center py-16 text-center gap-4">
-                        <BarChart3 className="h-10 w-10 text-atlas-secondary" />
+                        <ChartBar className="h-10 w-10 text-atlas-secondary" />
                         <div>
                             <h3 className="text-sm font-bold text-atlas-primary">Statistik & Analisis Biaya</h3>
                             <p className="text-xs text-atlas-secondary mt-1 max-w-sm leading-relaxed">
@@ -288,7 +288,7 @@ export default function Show({ tenant, apiKeys, overview, auth }) {
                             className="h-9 px-4 rounded-button bg-atlas-accent text-atlas-bg text-xs font-semibold hover:bg-atlas-accent/90 transition-all flex items-center gap-1.5"
                         >
                             <span>Buka Dashboard Analisis</span>
-                            <ChevronLeft className="h-4 w-4 rotate-180" />
+                            <CaretLeft className="h-4 w-4 rotate-180" />
                         </Link>
                     </div>
                 </Tabs.Content>

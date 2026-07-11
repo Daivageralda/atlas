@@ -15,57 +15,86 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $user = auth()->user();
+        $isAdmin = $user->isAdmin();
+        $tenantScope = $user->tenant_scope;
         $today = now()->startOfDay();
 
+        $logQuery = TranslationLog::where('created_at', '>=', $today)
+            ->when(!$isAdmin, fn($q) => $q->where('tenant_id', $tenantScope));
+
         $stats = [
-            'requests_today'       => TranslationLog::where('created_at', '>=', $today)->count(),
-            'success_rate'         => $this->successRate($today),
-            'avg_response_ms'      => (int) TranslationLog::where('created_at', '>=', $today)->avg('duration_ms'),
-            'token_usage_today'    => (int) TranslationLog::where('created_at', '>=', $today)->sum('token_usage'),
-            'failure_rate'         => $this->failureRate($today),
-            'estimated_cost_today' => (float) TranslationLog::where('created_at', '>=', $today)->sum('cost_estimate'),
-            'active_users'         => User::where('status', 'active')->count(),
-            'active_api_keys'      => ApiKey::where('status', 'active')->count(),
-            'cache_hit_rate'       => $this->cacheHitRate($today),
-            'queue_pending'        => QueueJob::where('status', 'pending')->count(),
+            'requests_today'       => (clone $logQuery)->count(),
+            'success_rate'         => $this->successRate($today, $isAdmin, $tenantScope),
+            'avg_response_ms'      => (int) (clone $logQuery)->avg('duration_ms'),
+            'token_usage_today'    => (int) (clone $logQuery)->sum('token_usage'),
+            'failure_rate'         => $this->failureRate($today, $isAdmin, $tenantScope),
+            'estimated_cost_today' => (float) (clone $logQuery)->sum('cost_estimate') * config('services.exchange.usd_to_idr'),
+            'active_users'         => $isAdmin ? User::where('status', 'active')->count() : null,
+            'active_api_keys'      => ApiKey::where('status', 'active')
+                                        ->when(!$isAdmin, fn($q) => $q->where('tenant_id', $tenantScope))
+                                        ->count(),
+            'cache_hit_rate'       => $this->cacheHitRate($today, $isAdmin, $tenantScope),
+            'queue_pending'        => QueueJob::where('status', 'pending')
+                                        ->when(!$isAdmin, fn($q) => $q->whereJsonContains('payload->tenant_id', $tenantScope))
+                                        ->count(),
         ];
 
         $systemStatus = [
-            'primary_provider'   => Provider::where('role', 'primary')->first()?->only('name', 'is_active'),
-            'fallback_provider'  => Provider::where('role', 'fallback')->first()?->only('name', 'is_active'),
-            'queue_failed_today' => QueueJob::where('status', 'failed')->where('created_at', '>=', $today)->count(),
+            'providers'          => Provider::select('name', 'role', 'is_active')->get(),
+            'queue_failed_today' => QueueJob::where('status', 'failed')
+                                        ->where('created_at', '>=', $today)
+                                        ->when(!$isAdmin, fn($q) => $q->whereJsonContains('payload->tenant_id', $tenantScope))
+                                        ->count(),
         ];
 
-        return Inertia::render('Dashboard', compact('stats', 'systemStatus'));
+        $recentLogs = \App\Http\Resources\TranslationLogResource::collection(
+            TranslationLog::with('tenant')
+                ->when(!$isAdmin, fn($q) => $q->where('tenant_id', $tenantScope))
+                ->latest()
+                ->take(5)
+                ->get()
+        );
+
+        return Inertia::render('Dashboard', compact('stats', 'systemStatus', 'recentLogs'));
     }
 
-    private function successRate($today)
+    private function successRate($today, $isAdmin, $tenantScope)
     {
-        $total = TranslationLog::where('created_at', '>=', $today)->count();
+        $logQuery = TranslationLog::where('created_at', '>=', $today)
+            ->when(!$isAdmin, fn($q) => $q->where('tenant_id', $tenantScope));
+
+        $total = (clone $logQuery)->count();
         if ($total === 0) return 100;
         
-        $success = TranslationLog::where('created_at', '>=', $today)->where('status', 'success')->count();
-        $cached = TranslationLog::where('created_at', '>=', $today)->where('status', 'cached')->count();
+        $success = (clone $logQuery)->where('status', 'success')->count();
+        $cached = (clone $logQuery)->where('status', 'cached')->count();
 
         return round((($success + $cached) / $total) * 100, 1);
     }
 
-    private function failureRate($today)
+    private function failureRate($today, $isAdmin, $tenantScope)
     {
-        $total = TranslationLog::where('created_at', '>=', $today)->count();
+        $logQuery = TranslationLog::where('created_at', '>=', $today)
+            ->when(!$isAdmin, fn($q) => $q->where('tenant_id', $tenantScope));
+
+        $total = (clone $logQuery)->count();
         if ($total === 0) return 0;
 
-        $failed = TranslationLog::where('created_at', '>=', $today)->where('status', 'failed')->count();
+        $failed = (clone $logQuery)->where('status', 'failed')->count();
 
         return round(($failed / $total) * 100, 1);
     }
 
-    private function cacheHitRate($today)
+    private function cacheHitRate($today, $isAdmin, $tenantScope)
     {
-        $total = TranslationLog::where('created_at', '>=', $today)->count();
+        $logQuery = TranslationLog::where('created_at', '>=', $today)
+            ->when(!$isAdmin, fn($q) => $q->where('tenant_id', $tenantScope));
+
+        $total = (clone $logQuery)->count();
         if ($total === 0) return 0;
 
-        $cached = TranslationLog::where('created_at', '>=', $today)->where('status', 'cached')->count();
+        $cached = (clone $logQuery)->where('status', 'cached')->count();
 
         return round(($cached / $total) * 100, 1);
     }

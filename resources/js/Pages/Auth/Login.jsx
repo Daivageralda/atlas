@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm, Head } from '@inertiajs/react';
-import { AuroraBackground } from '../../Components/decorative/AuroraBackground';
+
 
 export default function Login() {
     const { data, setData, post, processing, errors } = useForm({
@@ -17,12 +17,11 @@ export default function Login() {
     return (
         <div className="relative min-h-screen flex items-center justify-center p-4 overflow-hidden bg-atlas-bg select-none">
             <Head title="Masuk" />
-            <AuroraBackground />
 
             <div className="relative z-10 w-full max-w-md bg-atlas-card border border-atlas-border rounded-card p-8 shadow-2xl transition-all duration-300">
                 <div className="flex flex-col items-center mb-8">
                     <div className="h-10 w-10 rounded-xl bg-atlas-accent/10 border border-atlas-accent/30 flex items-center justify-center mb-3">
-                        <span className="text-atlas-accent font-mono font-bold text-lg">A</span>
+                        <span className="text-atlas-accent font-sans font-bold text-lg">A</span>
                     </div>
                     <h1 className="text-xl font-bold tracking-tight text-atlas-primary">Atlas Platform</h1>
                     <p className="text-sm text-atlas-secondary mt-1">Masuk ke dashboard panel anda</p>

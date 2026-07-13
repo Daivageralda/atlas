@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import * as Dialog from '@radix-ui/react-dialog';
-import { 
-    FileText, 
-    MagnifyingGlass, 
-    ArrowsCounterClockwise, 
-    CalendarBlank, 
-    Eye, 
+import {
+    FileText,
+    MagnifyingGlassIcon,
+    ArrowsCounterClockwise,
+    CalendarBlank,
+    Eye,
     X,
     Lock,
     CaretLeft,
@@ -17,11 +17,11 @@ import { EmptyState } from '../../Components/ui/EmptyState';
 // JSON Diff component
 function JsonDiff({ before, after }) {
     if (!before && !after) return <p className="text-atlas-secondary text-[11px]">Tidak ada metadata payload.</p>;
-    
+
     // If it's a delete operation, show full deleted record parameters
     if (before && !after) {
         return (
-            <div className="p-3 bg-atlas-danger/5 border border-atlas-danger/20 rounded-input space-y-1 text-[11px] font-mono">
+            <div className="p-3 bg-atlas-danger/5 border border-atlas-danger/20 rounded-input space-y-1 text-[11px] font-sans">
                 <p className="text-atlas-danger font-bold mb-1.5">[RECORD DELETED]</p>
                 {Object.entries(before).map(([key, val]) => (
                     <div key={key} className="break-words select-text">
@@ -34,9 +34,9 @@ function JsonDiff({ before, after }) {
     }
 
     const allKeys = [...new Set([...Object.keys(before ?? {}), ...Object.keys(after ?? {})])];
-    
+
     return (
-        <div className="p-3 bg-atlas-surface border border-atlas-border/50 rounded-input space-y-1.5 text-[11px] font-mono select-text overflow-y-auto max-h-[300px]">
+        <div className="p-3 bg-atlas-surface border border-atlas-border/50 rounded-input space-y-1.5 text-[11px] font-sans select-text overflow-y-auto max-h-[300px]">
             {allKeys.map(key => {
                 // Ignore internal sensitive tokens or password columns
                 if (key.includes('password') || key.includes('remember_token') || key.includes('api_key_encrypted')) {
@@ -116,25 +116,25 @@ export default function Index({ logs, filters, entity_types, actors }) {
         switch (actionName) {
             case 'created':
                 return (
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold tracking-wider font-mono bg-atlas-success/15 text-atlas-success border border-atlas-success/25">
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold tracking-wider font-sans bg-atlas-success/15 text-atlas-success border border-atlas-success/25">
                         CREATED
                     </span>
                 );
             case 'updated':
                 return (
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold tracking-wider font-mono bg-atlas-info/15 text-atlas-info border border-atlas-info/25">
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold tracking-wider font-sans bg-atlas-info/15 text-atlas-info border border-atlas-info/25">
                         UPDATED
                     </span>
                 );
             case 'deleted':
                 return (
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold tracking-wider font-mono bg-atlas-danger/15 text-atlas-danger border border-atlas-danger/25">
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold tracking-wider font-sans bg-atlas-danger/15 text-atlas-danger border border-atlas-danger/25">
                         DELETED
                     </span>
                 );
             default:
                 return (
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold tracking-wider font-mono bg-atlas-disabled/15 text-atlas-secondary border border-atlas-disabled/25">
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold tracking-wider font-sans bg-atlas-disabled/15 text-atlas-secondary border border-atlas-disabled/25">
                         {actionName.toUpperCase()}
                     </span>
                 );
@@ -157,7 +157,7 @@ export default function Index({ logs, filters, entity_types, actors }) {
                     </div>
                 </div>
 
-                <div className="px-3 py-1.5 rounded-full bg-atlas-surface border border-atlas-border flex items-center gap-1.5 text-[10px] font-mono text-atlas-secondary">
+                <div className="px-3 py-1.5 rounded-full bg-atlas-surface border border-atlas-border flex items-center gap-1.5 text-[10px] font-sans text-atlas-secondary">
                     <span className="h-1.5 w-1.5 rounded-full bg-atlas-accent animate-pulse" />
                     APPEND-ONLY ARCHIVE
                 </div>
@@ -226,7 +226,7 @@ export default function Index({ logs, filters, entity_types, actors }) {
                             setDateFrom(e.target.value);
                             router.get(route('audit-log.index'), { ...filters, date_from: e.target.value }, { replace: true, preserveState: true });
                         }}
-                        className="w-full pl-9 pr-3 py-2 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary outline-none focus:border-atlas-accent/50 text-xs font-mono"
+                        className="w-full pl-9 pr-3 py-2 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary outline-none focus:border-atlas-accent/50 text-xs font-sans"
                     />
                 </div>
 
@@ -240,7 +240,7 @@ export default function Index({ logs, filters, entity_types, actors }) {
                             setDateTo(e.target.value);
                             router.get(route('audit-log.index'), { ...filters, date_to: e.target.value }, { replace: true, preserveState: true });
                         }}
-                        className="w-full pl-9 pr-3 py-2 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary outline-none focus:border-atlas-accent/50 text-xs font-mono"
+                        className="w-full pl-9 pr-3 py-2 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary outline-none focus:border-atlas-accent/50 text-xs font-sans"
                     />
                 </div>
 
@@ -273,22 +273,22 @@ export default function Index({ logs, filters, entity_types, actors }) {
                             </thead>
                             <tbody className="divide-y divide-atlas-border/50 text-atlas-secondary">
                                 {logs.data.map((log) => (
-                                    <tr 
-                                        key={log.id} 
+                                    <tr
+                                        key={log.id}
                                         className="hover:bg-atlas-hover/30 transition-colors duration-150"
                                     >
                                         <td className="px-6 py-3.5">
                                             <div>
                                                 <p className="font-semibold text-atlas-primary">{log.actor_name}</p>
-                                                <p className="font-mono text-[10px] text-atlas-secondary mt-0.5">{log.actor_email}</p>
+                                                <p className="font-sans text-[10px] text-atlas-secondary mt-0.5">{log.actor_email}</p>
                                             </div>
                                         </td>
                                         <td className="px-6 py-3.5">{getActionBadge(log.action)}</td>
                                         <td className="px-6 py-3.5 font-semibold text-atlas-primary">{log.entity_type}</td>
-                                        <td className="px-6 py-3.5 font-mono text-[10px]" title={log.entity_id_full}>
+                                        <td className="px-6 py-3.5 font-sans text-[10px]" title={log.entity_id_full}>
                                             {log.entity_id}
                                         </td>
-                                        <td className="px-6 py-3.5 font-mono text-[10px]">
+                                        <td className="px-6 py-3.5 font-sans text-[10px]">
                                             {new Date(log.created_at).toLocaleString('id-ID')}
                                         </td>
                                         <td className="px-6 py-3.5 text-right">
@@ -330,7 +330,7 @@ export default function Index({ logs, filters, entity_types, actors }) {
             {/* Pagination */}
             {logs.links && logs.links.length > 3 && (
                 <div className="flex items-center justify-between pt-2">
-                    <p className="text-[11px] text-atlas-secondary font-mono">
+                    <p className="text-[11px] text-atlas-secondary font-sans">
                         Menampilkan {logs.meta?.from || 0} - {logs.meta?.to || 0} dari {logs.meta?.total || 0} log audit
                     </p>
                     <div className="flex items-center gap-1.5 text-xs">
@@ -343,11 +343,10 @@ export default function Index({ logs, filters, entity_types, actors }) {
                                 <Link
                                     key={idx}
                                     href={link.url}
-                                    className={`h-8 px-3 rounded-button border flex items-center justify-center font-semibold transition-colors ${
-                                        link.active 
-                                            ? 'bg-atlas-accent/15 border-atlas-accent/30 text-atlas-accent' 
+                                    className={`h-8 px-3 rounded-button border flex items-center justify-center font-semibold transition-colors ${link.active
+                                            ? 'bg-atlas-accent/15 border-atlas-accent/30 text-atlas-accent'
                                             : 'bg-atlas-surface border-atlas-border text-atlas-secondary hover:text-atlas-primary hover:bg-atlas-hover'
-                                    }`}
+                                        }`}
                                 >
                                     {isPrev ? <CaretLeft className="h-4 w-4" /> : isNext ? <CaretRight className="h-4 w-4" /> : link.label}
                                 </Link>
@@ -389,7 +388,7 @@ export default function Index({ logs, filters, entity_types, actors }) {
                                         <span className="block text-[9px] uppercase font-bold tracking-wider text-atlas-secondary mb-0.5">
                                             Waktu Kejadian
                                         </span>
-                                        <span className="font-mono text-atlas-primary text-[10px]">
+                                        <span className="font-sans text-atlas-primary text-[10px]">
                                             {new Date(selectedLog.created_at).toLocaleString('id-ID')}
                                         </span>
                                     </div>

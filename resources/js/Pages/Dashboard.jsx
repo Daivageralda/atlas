@@ -131,16 +131,16 @@ export default function Dashboard({ stats, systemStatus, recentLogs }) {
                                                 </TableCell>
                                             )}
                                             <TableCell className="py-3 px-4">
-                                                <div className="flex items-center gap-1.5 font-mono text-[10px] text-atlas-primary">
+                                                <div className="flex items-center gap-1.5 font-sans text-[10px] text-atlas-primary">
                                                     <span>{log.source_lang}</span>
                                                     <ArrowRight className="h-3 w-3 text-atlas-secondary" />
                                                     <span>{log.target_lang}</span>
                                                 </div>
                                             </TableCell>
-                                            <TableCell className="py-3 px-4 text-right font-mono text-[10px] text-atlas-primary">
+                                            <TableCell className="py-3 px-4 text-right font-sans text-[10px] text-atlas-primary">
                                                 {log.duration_ms}ms
                                             </TableCell>
-                                            <TableCell className="py-3 px-4 text-right font-mono text-[10px] text-atlas-primary">
+                                            <TableCell className="py-3 px-4 text-right font-sans text-[10px] text-atlas-primary">
                                                 {log.estimated_cost > 0 ? `Rp. ${log.estimated_cost.toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}` : '—'}
                                             </TableCell>
                                             <TableCell className="py-3 pl-4 text-right">
@@ -198,12 +198,12 @@ export default function Dashboard({ stats, systemStatus, recentLogs }) {
                                                 <p className="text-xs font-semibold text-atlas-primary group-hover/provider:text-atlas-accent transition-colors">
                                                     {provider.name}
                                                 </p>
-                                                <p className="text-[9px] text-atlas-secondary mt-0.5 font-mono uppercase tracking-wide">
+                                                <p className="text-[9px] text-atlas-secondary mt-0.5 font-sans uppercase tracking-wide">
                                                     {provider.role} Engine
                                                 </p>
                                             </div>
                                         </div>
-                                        <span className={`text-[9px] font-semibold font-mono tracking-wider ${provider.is_active ? 'text-atlas-accent' : 'text-atlas-secondary'}`}>
+                                        <span className={`text-[9px] font-semibold font-sans tracking-wider ${provider.is_active ? 'text-atlas-accent' : 'text-atlas-secondary'}`}>
                                             {provider.is_active ? 'ACTIVE' : 'INACTIVE'}
                                         </span>
                                     </div>
@@ -216,7 +216,7 @@ export default function Dashboard({ stats, systemStatus, recentLogs }) {
                         </div>
                     </div>
 
-                    <div className="mt-6 pt-4 border-t border-atlas-border/40 flex flex-col gap-3 text-xs text-atlas-secondary font-mono">
+                    <div className="mt-6 pt-4 border-t border-atlas-border/40 flex flex-col gap-3 text-xs text-atlas-secondary font-sans">
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-1.5">
                                 <Pulse className="h-3.5 w-3.5 text-atlas-secondary" />
@@ -235,7 +235,7 @@ export default function Dashboard({ stats, systemStatus, recentLogs }) {
                                 <span>Perlu Tindakan (Retry Queue)</span>
                             </Link>
                         ) : (
-                            <span className="text-atlas-accent flex items-center justify-center gap-1 font-mono text-[9px] mt-1">
+                            <span className="text-atlas-accent flex items-center justify-center gap-1 font-sans text-[9px] mt-1">
                                 <Pulse className="h-3 w-3" />
                                 ALL SYSTEM HEALTHY
                             </span>

@@ -11,7 +11,7 @@ export function CodeBlock({ code, className = '' }) {
     };
 
     return (
-        <div className={`relative bg-atlas-surface border border-atlas-border rounded-input p-4 font-mono text-[11px] select-text group ${className}`}>
+        <div className={`relative bg-atlas-surface border border-atlas-border rounded-input p-4 font-sans text-[11px] select-text group ${className}`}>
             {/* Copy Button */}
             <button
                 type="button"

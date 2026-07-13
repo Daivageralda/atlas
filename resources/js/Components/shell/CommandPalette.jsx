@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { router } from '@inertiajs/react';
-import { 
-    MagnifyingGlass, 
-    SquaresFour, 
-    Buildings, 
-    Key, 
-    Package, 
-    Scroll, 
-    Database, 
-    ListChecks, 
-    ChartBar, 
-    Users, 
+import {
+    MagnifyingGlassIcon,
+    SquaresFour,
+    Buildings,
+    Key,
+    Package,
+    Scroll,
+    Database,
+    ListChecks,
+    ChartBar,
+    Users,
     ClipboardText,
     Gear
 } from '@phosphor-icons/react';
@@ -33,8 +33,8 @@ export function CommandPalette({ open, onClose }) {
         { icon: Gear, label: 'Pengaturan Gateway', href: '/settings', keys: 'setting config language pricing' },
     ];
 
-    const filtered = commands.filter(cmd => 
-        cmd.label.toLowerCase().includes(query.toLowerCase()) || 
+    const filtered = commands.filter(cmd =>
+        cmd.label.toLowerCase().includes(query.toLowerCase()) ||
         cmd.keys.toLowerCase().includes(query.toLowerCase())
     );
 
@@ -48,12 +48,12 @@ export function CommandPalette({ open, onClose }) {
             <Dialog.Portal>
                 {/* Backdrop */}
                 <Dialog.Overlay className="fixed inset-0 z-50 bg-atlas-overlay backdrop-blur-sm transition-opacity duration-150 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
-                
+
                 {/* Modal Container */}
                 <Dialog.Content className="fixed top-[20%] left-[50%] z-50 w-full max-w-[550px] translate-x-[-50%] bg-atlas-card border border-atlas-border rounded-card p-0 shadow-2xl focus:outline-none transition-transform duration-[var(--duration-fast)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95">
                     {/* Search Bar Input */}
                     <div className="flex items-center gap-3 px-4 py-3.5 border-b border-atlas-border">
-                        <MagnifyingGlass className="h-5 w-5 text-atlas-secondary flex-shrink-0" />
+                        <MagnifyingGlassIcon className="h-5 w-5 text-atlas-secondary flex-shrink-0" />
                         <input
                             type="text"
                             placeholder="Ketik command atau cari halaman..."
@@ -62,7 +62,7 @@ export function CommandPalette({ open, onClose }) {
                             className="w-full bg-transparent border-0 outline-none text-sm text-atlas-primary placeholder-atlas-secondary focus:ring-0 p-0"
                             autoFocus
                         />
-                        <span className="hidden sm:inline text-[10px] font-mono text-atlas-secondary bg-atlas-surface border border-atlas-border px-1.5 py-0.5 rounded">ESC</span>
+                        <span className="hidden sm:inline text-[10px] font-sans text-atlas-secondary bg-atlas-surface border border-atlas-border px-1.5 py-0.5 rounded">ESC</span>
                     </div>
 
                     {/* Result List */}
@@ -80,12 +80,12 @@ export function CommandPalette({ open, onClose }) {
                                             <Icon className="h-4 w-4 text-atlas-secondary group-hover:text-atlas-accent group-focus:text-atlas-accent transition-colors" />
                                             <span className="font-medium">{cmd.label}</span>
                                         </div>
-                                        <span className="text-[10px] font-mono text-atlas-secondary opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity">Enter ↵</span>
+                                        <span className="text-[10px] font-sans text-atlas-secondary opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity">Enter ↵</span>
                                     </button>
                                 );
                             })
                         ) : (
-                            <div className="py-6 text-center text-xs text-atlas-secondary font-mono">
+                            <div className="py-6 text-center text-xs text-atlas-secondary font-sans">
                                 Tidak ada hasil untuk "{query}"
                             </div>
                         )}

@@ -145,7 +145,7 @@ export default function Index({ settings }) {
                                     {data.supported_languages.map(code => (
                                         <div 
                                             key={code} 
-                                            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-atlas-accent/10 border border-atlas-accent/20 text-atlas-accent font-mono text-[11px] font-bold"
+                                            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-atlas-accent/10 border border-atlas-accent/20 text-atlas-accent font-sans text-[11px] font-bold"
                                         >
                                             <span>{code}</span>
                                             {data.supported_languages.length > 1 && (
@@ -169,7 +169,7 @@ export default function Index({ settings }) {
                                         value={newLang}
                                         onChange={(e) => setNewLang(e.target.value)}
                                         placeholder="Kode (e.g. fr)"
-                                        className="w-full px-3 py-2 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary outline-none focus:border-atlas-accent/50 text-xs font-mono text-center uppercase"
+                                        className="w-full px-3 py-2 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary outline-none focus:border-atlas-accent/50 text-xs font-sans text-center uppercase"
                                     />
                                     <button
                                         type="button"
@@ -180,7 +180,7 @@ export default function Index({ settings }) {
                                         <span>Tambah</span>
                                     </button>
                                 </div>
-                                {errors.supported_languages && <p className="text-atlas-danger font-mono text-[10px]">{errors.supported_languages}</p>}
+                                {errors.supported_languages && <p className="text-atlas-danger font-sans text-[10px]">{errors.supported_languages}</p>}
                             </div>
                         )}
 
@@ -200,16 +200,16 @@ export default function Index({ settings }) {
                                         value={data.global_prompt}
                                         onChange={(e) => setData('global_prompt', e.target.value.substring(0, 2000))}
                                         placeholder="Ketik prompt instruksi translasinya..."
-                                        className="w-full px-4 py-3 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary font-mono text-[11px] leading-relaxed outline-none focus:border-atlas-accent/50 resize-y"
+                                        className="w-full px-4 py-3 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary font-sans text-[11px] leading-relaxed outline-none focus:border-atlas-accent/50 resize-y"
                                     />
-                                    <div className="flex items-center justify-between font-mono text-[10px]">
+                                    <div className="flex items-center justify-between font-sans text-[10px]">
                                         <span className="text-atlas-secondary">Maksimum 2000 karakter</span>
                                         <span className={data.global_prompt.length >= 1950 ? 'text-atlas-danger font-bold' : 'text-atlas-secondary'}>
                                             {data.global_prompt.length}/2000
                                         </span>
                                     </div>
                                 </div>
-                                {errors.global_prompt && <p className="text-atlas-danger font-mono text-[10px]">{errors.global_prompt}</p>}
+                                {errors.global_prompt && <p className="text-atlas-danger font-sans text-[10px]">{errors.global_prompt}</p>}
                             </div>
                         )}
 
@@ -235,9 +235,9 @@ export default function Index({ settings }) {
                                             max="10"
                                             value={data.retry_max_attempts}
                                             onChange={(e) => handleMaxAttemptsChange(e.target.value)}
-                                            className="w-full px-3 py-2 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary font-mono text-xs"
+                                            className="w-full px-3 py-2 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary font-sans text-xs"
                                         />
-                                        {errors.retry_max_attempts && <p className="text-atlas-danger font-mono text-[10px]">{errors.retry_max_attempts}</p>}
+                                        {errors.retry_max_attempts && <p className="text-atlas-danger font-sans text-[10px]">{errors.retry_max_attempts}</p>}
                                     </div>
 
                                     {/* Backoff Delays list */}
@@ -246,7 +246,7 @@ export default function Index({ settings }) {
                                             Jeda Waktu Tunggu Percobaan (Exponential Backoff ms)
                                         </label>
                                         
-                                        <div className="space-y-2 p-4 bg-atlas-surface border border-atlas-border/50 rounded-input font-mono text-xs">
+                                        <div className="space-y-2 p-4 bg-atlas-surface border border-atlas-border/50 rounded-input font-sans text-xs">
                                             {data.retry_backoff_ms.map((delay, index) => (
                                                 <div key={index} className="flex items-center justify-between gap-3">
                                                     <span className="text-atlas-secondary">Percobaan #{index + 1}:</span>

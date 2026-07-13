@@ -47,7 +47,7 @@ export default function Show({ log }) {
                         </div>
                         <div>
                             <h1 className="text-xl font-bold tracking-tight text-atlas-primary">Audit Detail Transaksi</h1>
-                            <p className="text-xs font-mono text-atlas-secondary mt-0.5 select-all">UUID: {log.id}</p>
+                            <p className="text-xs font-sans text-atlas-secondary mt-0.5 select-all">UUID: {log.id}</p>
                         </div>
                     </div>
                     <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border uppercase ${
@@ -74,7 +74,7 @@ export default function Show({ log }) {
                                 <Coins className="h-3.5 w-3.5" />
                                 <span>Estimasi Biaya</span>
                             </p>
-                            <p className="font-mono text-base font-bold text-atlas-primary">
+                            <p className="font-sans text-base font-bold text-atlas-primary">
                                 {log.estimated_cost > 0 ? `Rp ${log.estimated_cost.toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}` : '—'}
                             </p>
                         </div>
@@ -85,7 +85,7 @@ export default function Show({ log }) {
                                 <Clock className="h-3.5 w-3.5" />
                                 <span>Durasi Gateway</span>
                             </p>
-                            <p className="font-mono text-base font-bold text-atlas-primary">{log.duration_ms}ms</p>
+                            <p className="font-sans text-base font-bold text-atlas-primary">{log.duration_ms}ms</p>
                         </div>
 
                         {/* Retries */}
@@ -94,7 +94,7 @@ export default function Show({ log }) {
                                 <Pulse className="h-3.5 w-3.5" />
                                 <span>Retries Attempt</span>
                             </p>
-                            <p className="font-mono text-base font-bold text-atlas-primary">{log.retry_count}</p>
+                            <p className="font-sans text-base font-bold text-atlas-primary">{log.retry_count}</p>
                         </div>
 
                         {/* Fallback Used */}
@@ -103,7 +103,7 @@ export default function Show({ log }) {
                                 <HardDrive className="h-3.5 w-3.5" />
                                 <span>Fallback Engine</span>
                             </p>
-                            <p className="font-mono text-base font-bold text-atlas-primary">{log.fallback_used ? 'YES' : 'NO'}</p>
+                            <p className="font-sans text-base font-bold text-atlas-primary">{log.fallback_used ? 'YES' : 'NO'}</p>
                         </div>
                     </div>
 
@@ -130,7 +130,7 @@ export default function Show({ log }) {
 
                             <div className="space-y-1.5 p-3 bg-atlas-surface border border-atlas-border/50 rounded-input">
                                 <span className="text-[9px] uppercase font-bold tracking-wider text-atlas-secondary">Bahasa Terjemahan</span>
-                                <div className="flex items-center gap-1.5 font-mono text-[11px] text-atlas-primary">
+                                <div className="flex items-center gap-1.5 font-sans text-[11px] text-atlas-primary">
                                     <span className="font-bold">{log.source_lang.toUpperCase()}</span>
                                     <ArrowRight className="h-3.5 w-3.5 text-atlas-secondary" />
                                     <span className="font-bold">{log.target_lang.toUpperCase()}</span>
@@ -139,7 +139,7 @@ export default function Show({ log }) {
 
                             <div className="space-y-1.5 p-3 bg-atlas-surface border border-atlas-border/50 rounded-input">
                                 <span className="text-[9px] uppercase font-bold tracking-wider text-atlas-secondary">Format Content Type</span>
-                                <p className="font-mono text-atlas-primary uppercase text-[10px] tracking-wider">{log.content_type}</p>
+                                <p className="font-sans text-atlas-primary uppercase text-[10px] tracking-wider">{log.content_type}</p>
                             </div>
                         </div>
                     </div>
@@ -153,7 +153,7 @@ export default function Show({ log }) {
                             <WarningCircle className="h-5 w-5 text-atlas-danger flex-shrink-0 mt-0.5" />
                             <div className="space-y-1">
                                 <h4 className="font-bold text-atlas-danger">Error Execution</h4>
-                                <p className="text-atlas-secondary font-mono leading-relaxed text-[11px]">
+                                <p className="text-atlas-secondary font-sans leading-relaxed text-[11px]">
                                     {log.error_message}
                                 </p>
                             </div>
@@ -171,7 +171,7 @@ export default function Show({ log }) {
                                 {copiedRequest ? <Check className="h-3.5 w-3.5 text-atlas-success" /> : <Copy className="h-3.5 w-3.5" />}
                             </button>
                         </div>
-                        <pre className="p-3 bg-atlas-surface border border-atlas-border/50 rounded-input font-mono text-[11px] text-atlas-primary overflow-x-auto select-all max-h-[140px]">
+                        <pre className="p-3 bg-atlas-surface border border-atlas-border/50 rounded-input font-sans text-[11px] text-atlas-primary overflow-x-auto select-all max-h-[140px]">
                             {JSON.stringify(log.request_payload, null, 2)}
                         </pre>
                     </div>
@@ -188,7 +188,7 @@ export default function Show({ log }) {
                                     {copiedResponse ? <Check className="h-3.5 w-3.5 text-atlas-success" /> : <Copy className="h-3.5 w-3.5" />}
                                 </button>
                             </div>
-                            <pre className="p-3 bg-atlas-surface border border-atlas-border/50 rounded-input font-mono text-[11px] text-atlas-primary overflow-x-auto select-all max-h-[180px]">
+                            <pre className="p-3 bg-atlas-surface border border-atlas-border/50 rounded-input font-sans text-[11px] text-atlas-primary overflow-x-auto select-all max-h-[180px]">
                                 {JSON.stringify(log.response_payload, null, 2)}
                             </pre>
                         </div>

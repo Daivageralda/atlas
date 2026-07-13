@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Head, router, useForm } from '@inertiajs/react';
 import * as Dialog from '@radix-ui/react-dialog';
-import { 
-    Pulse, 
-    ArrowsCounterClockwise, 
-    Clock, 
-    Play, 
-    CheckCircle, 
-    XCircle,
+import {
+    Pulse,
+    ArrowsCounterClockwise,
+    Clock,
+    Play,
+    CheckCircleIcon,
+    XCircleIcon,
     WarningCircle,
     CircleNotch,
     Eye,
@@ -24,10 +24,10 @@ export default function Index({ jobs, counts }) {
     // Auto refresh data every 15 seconds
     useEffect(() => {
         const interval = setInterval(() => {
-            router.reload({ 
-                only: ['jobs', 'counts'], 
-                preserveState: true, 
-                preserveScroll: true 
+            router.reload({
+                only: ['jobs', 'counts'],
+                preserveState: true,
+                preserveScroll: true
             });
         }, 15000);
 
@@ -51,35 +51,35 @@ export default function Index({ jobs, counts }) {
         switch (status) {
             case 'pending':
                 return (
-                    <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-[9px] font-bold font-mono tracking-wider bg-atlas-warning/10 text-atlas-warning border border-atlas-warning/20">
+                    <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-[9px] font-bold font-sans tracking-wider bg-atlas-warning/10 text-atlas-warning border border-atlas-warning/20">
                         <Clock className="h-3 w-3" />
                         PENDING
                     </span>
                 );
             case 'running':
                 return (
-                    <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-[9px] font-bold font-mono tracking-wider bg-atlas-info/10 text-atlas-info border border-atlas-info/20 animate-pulse">
+                    <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-[9px] font-bold font-sans tracking-wider bg-atlas-info/10 text-atlas-info border border-atlas-info/20 animate-pulse">
                         <CircleNotch className="h-3 w-3 animate-spin" />
                         RUNNING
                     </span>
                 );
             case 'success':
                 return (
-                    <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-[9px] font-bold font-mono tracking-wider bg-atlas-success/10 text-atlas-success border border-atlas-success/20">
-                        <CheckCircle className="h-3 w-3" />
+                    <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-[9px] font-bold font-sans tracking-wider bg-atlas-success/10 text-atlas-success border border-atlas-success/20">
+                        <CheckCircleIcon className="h-3 w-3" />
                         SUCCESS
                     </span>
                 );
             case 'failed':
                 return (
-                    <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-[9px] font-bold font-mono tracking-wider bg-atlas-danger/10 text-atlas-danger border border-atlas-danger/20">
-                        <XCircle className="h-3 w-3" />
+                    <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-[9px] font-bold font-sans tracking-wider bg-atlas-danger/10 text-atlas-danger border border-atlas-danger/20">
+                        <XCircleIcon className="h-3 w-3" />
                         FAILED
                     </span>
                 );
             default:
                 return (
-                    <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-[9px] font-bold font-mono tracking-wider bg-atlas-disabled/10 text-atlas-disabled border border-atlas-disabled/20">
+                    <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-[9px] font-bold font-sans tracking-wider bg-atlas-disabled/10 text-atlas-disabled border border-atlas-disabled/20">
                         UNKNOWN
                     </span>
                 );
@@ -116,25 +116,25 @@ export default function Index({ jobs, counts }) {
                 {/* Pending */}
                 <div className="bg-atlas-card border border-atlas-border rounded-card p-4 transition-all hover:border-atlas-border/80">
                     <p className="text-[10px] uppercase font-bold tracking-wider text-atlas-secondary">Pending Jobs</p>
-                    <p className="text-2xl font-bold text-atlas-warning mt-2 font-mono">{counts.pending}</p>
+                    <p className="text-2xl font-bold text-atlas-warning mt-2 font-sans">{counts.pending}</p>
                 </div>
 
                 {/* Running */}
                 <div className="bg-atlas-card border border-atlas-border rounded-card p-4 transition-all hover:border-atlas-border/80">
                     <p className="text-[10px] uppercase font-bold tracking-wider text-atlas-secondary">Running Jobs</p>
-                    <p className="text-2xl font-bold text-atlas-info mt-2 font-mono">{counts.running}</p>
+                    <p className="text-2xl font-bold text-atlas-info mt-2 font-sans">{counts.running}</p>
                 </div>
 
                 {/* Success */}
                 <div className="bg-atlas-card border border-atlas-border rounded-card p-4 transition-all hover:border-atlas-border/80">
                     <p className="text-[10px] uppercase font-bold tracking-wider text-atlas-secondary">Success Jobs</p>
-                    <p className="text-2xl font-bold text-atlas-success mt-2 font-mono">{counts.success}</p>
+                    <p className="text-2xl font-bold text-atlas-success mt-2 font-sans">{counts.success}</p>
                 </div>
 
                 {/* Failed */}
                 <div className="bg-atlas-card border border-atlas-border rounded-card p-4 transition-all hover:border-atlas-border/80">
                     <p className="text-[10px] uppercase font-bold tracking-wider text-atlas-secondary">Failed Jobs</p>
-                    <p className="text-2xl font-bold text-atlas-danger mt-2 font-mono">{counts.failed}</p>
+                    <p className="text-2xl font-bold text-atlas-danger mt-2 font-sans">{counts.failed}</p>
                 </div>
             </div>
 
@@ -156,25 +156,25 @@ export default function Index({ jobs, counts }) {
                             </thead>
                             <tbody className="divide-y divide-atlas-border/50 text-atlas-secondary">
                                 {jobs.data.map((job) => (
-                                    <tr 
-                                        key={job.id} 
+                                    <tr
+                                        key={job.id}
                                         className="hover:bg-atlas-hover/30 transition-colors duration-150"
                                     >
-                                        <td className="px-6 py-3.5 font-mono text-[11px] text-atlas-primary font-semibold">
+                                        <td className="px-6 py-3.5 font-sans text-[11px] text-atlas-primary font-semibold">
                                             {job.id.substring(0, 8)}...
                                         </td>
                                         <td className="px-6 py-3.5">
-                                            <span className="font-mono text-[10px] text-atlas-primary">
+                                            <span className="font-sans text-[10px] text-atlas-primary">
                                                 {job.type}
                                             </span>
                                         </td>
                                         <td className="px-6 py-3.5">
                                             {getStatusBadge(job.status)}
                                         </td>
-                                        <td className="px-6 py-3.5 font-mono text-[10px]">
+                                        <td className="px-6 py-3.5 font-sans text-[10px]">
                                             {job.retry_count}
                                         </td>
-                                        <td className="px-6 py-3.5 max-w-[240px] truncate text-[10px] font-mono text-atlas-danger" title={job.error}>
+                                        <td className="px-6 py-3.5 max-w-[240px] truncate text-[10px] font-sans text-atlas-danger" title={job.error}>
                                             {job.error || '—'}
                                         </td>
                                         <td className="px-6 py-3.5 text-[10px]">
@@ -189,7 +189,7 @@ export default function Index({ jobs, counts }) {
                                                 >
                                                     <Eye className="h-3.5 w-3.5" />
                                                 </button>
-                                                
+
                                                 {(job.status === 'failed' || job.error) && (
                                                     confirmRetryId === job.id ? (
                                                         <div className="flex items-center justify-end gap-1.5">
@@ -260,7 +260,7 @@ export default function Index({ jobs, counts }) {
                                     <span className="block text-[10px] uppercase font-bold tracking-wider text-atlas-secondary mb-1">
                                         Job ID (ULID)
                                     </span>
-                                    <span className="font-mono text-atlas-primary select-all text-[11px]">
+                                    <span className="font-sans text-atlas-primary select-all text-[11px]">
                                         {detailJob.id}
                                     </span>
                                 </div>
@@ -276,7 +276,7 @@ export default function Index({ jobs, counts }) {
                                         <span className="block text-[10px] uppercase font-bold tracking-wider text-atlas-secondary mb-1">
                                             Retries Count
                                         </span>
-                                        <span className="font-mono text-atlas-primary text-[11px]">
+                                        <span className="font-sans text-atlas-primary text-[11px]">
                                             {detailJob.retry_count} kali
                                         </span>
                                     </div>
@@ -286,7 +286,7 @@ export default function Index({ jobs, counts }) {
                                     <span className="block text-[10px] uppercase font-bold tracking-wider text-atlas-secondary mb-1">
                                         Payload (JSON)
                                     </span>
-                                    <pre className="p-3 bg-atlas-surface border border-atlas-border/50 rounded-input text-atlas-primary font-mono text-[10px] max-h-[140px] overflow-y-auto select-text break-words">
+                                    <pre className="p-3 bg-atlas-surface border border-atlas-border/50 rounded-input text-atlas-primary font-sans text-[10px] max-h-[140px] overflow-y-auto select-text break-words">
                                         {JSON.stringify(detailJob.payload, null, 2)}
                                     </pre>
                                 </div>
@@ -296,7 +296,7 @@ export default function Index({ jobs, counts }) {
                                         <span className="block text-[10px] uppercase font-bold tracking-wider text-atlas-secondary mb-1">
                                             Error Trace / Message
                                         </span>
-                                        <pre className="p-3 bg-atlas-surface border border-atlas-border/50 rounded-input text-atlas-danger font-mono text-[10px] max-h-[140px] overflow-y-auto select-text break-words whitespace-pre-wrap">
+                                        <pre className="p-3 bg-atlas-surface border border-atlas-border/50 rounded-input text-atlas-danger font-sans text-[10px] max-h-[140px] overflow-y-auto select-text break-words whitespace-pre-wrap">
                                             {detailJob.error}
                                         </pre>
                                     </div>

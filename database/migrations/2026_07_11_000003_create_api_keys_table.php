@@ -9,14 +9,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('api_keys', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('tenant_id')->constrained()->cascadeOnDelete();
+            $table->uuid('id')->primary();
+            $table->foreignUuid('tenant_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->string('label');
-            $table->string('key_hash', 64)->unique();
+            $table->string('key_id', 64)->unique();
+            $table->string('key_hash', 64);
             $table->json('scopes')->nullable();
-            $table->enum('status', ['active', 'revoked'])->default('active');
+            $table->timestamp('expires_at')->nullable();
+            $table->timestamp('revoked_at')->nullable();
             $table->timestamp('last_used_at')->nullable();
             $table->timestamps();
+
+            $table->index('last_used_at');
         });
     }
 

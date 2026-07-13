@@ -9,7 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('queue_jobs', function (Blueprint $table) {
-            $table->ulid('id')->primary();
+            $table->uuid('id')->primary();
             $table->string('type');
             $table->json('payload');
             $table->enum('status', ['pending', 'running', 'success', 'failed'])->default('pending');

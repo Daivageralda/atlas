@@ -33,7 +33,7 @@ export function Input({
             />
 
             {error ? (
-                <p className="text-atlas-danger font-mono text-[10px]">{error}</p>
+                <p className="text-atlas-danger font-sans text-[10px]">{error}</p>
             ) : hint ? (
                 <p className="text-atlas-secondary/70 text-[10px] leading-relaxed">{hint}</p>
             ) : null}

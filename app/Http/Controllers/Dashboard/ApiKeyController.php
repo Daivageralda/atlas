@@ -59,24 +59,22 @@ class ApiKeyController extends Controller
             abort(403, 'Unauthorized.');
         }
 
-        // Secure Key Generation: atl_ prefix + random 48 characters
-        $raw = 'atl_' . bin2hex(random_bytes(24));
-        $hash = hash('sha256', $raw);
-        $preview = substr($raw, 0, 8) . '...' . substr($raw, -4);
+        $generated = ApiKey::generate();
 
         $apiKey = $tenant->apiKeys()->create([
             'label'       => $request->label,
-            'key_hash'    => $hash,
-            'key_preview' => $preview,
+            'key_id'      => $generated['key_id'],
+            'key_hash'    => $generated['key_hash'],
+            'key_preview' => $generated['key_preview'],
             'scopes'      => $request->scopes ?? null,
-            'status'      => 'active',
+            'created_by'  => $user->id,
         ]);
 
         AuditLogger::log($apiKey, 'created', [], $apiKey->toArray());
 
         return redirect()
             ->route('api-keys.index')
-            ->with('new_key', $raw)
+            ->with('new_key', $generated['raw'])
             ->with('success', 'API key berhasil dibuat.');
     }
 
@@ -88,7 +86,7 @@ class ApiKeyController extends Controller
         }
 
         $before = $apiKey->toArray();
-        $apiKey->update(['status' => 'revoked']);
+        $apiKey->update(['revoked_at' => now()]);
         
         AuditLogger::log($apiKey, 'updated', $before, $apiKey->fresh()->toArray());
 
@@ -102,22 +100,21 @@ class ApiKeyController extends Controller
             abort(403, 'Unauthorized.');
         }
 
-        $raw = 'atl_' . bin2hex(random_bytes(24));
-        $hash = hash('sha256', $raw);
-        $preview = substr($raw, 0, 8) . '...' . substr($raw, -4);
+        $generated = ApiKey::generate();
 
         $before = $apiKey->toArray();
         $apiKey->update([
-            'key_hash'     => $hash,
-            'key_preview'  => $preview,
-            'status'       => 'active',
+            'key_id'       => $generated['key_id'],
+            'key_hash'     => $generated['key_hash'],
+            'key_preview'  => $generated['key_preview'],
+            'revoked_at'   => null,
             'last_used_at' => null
         ]);
 
         AuditLogger::log($apiKey, 'updated', $before, $apiKey->fresh()->toArray());
 
         return back()
-            ->with('new_key', $raw)
+            ->with('new_key', $generated['raw'])
             ->with('success', 'API key diperbarui.');
     }
 

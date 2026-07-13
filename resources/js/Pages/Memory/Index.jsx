@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Head, useForm, router, Link } from '@inertiajs/react';
 import * as Dialog from '@radix-ui/react-dialog';
-import { 
-    Database, 
-    MagnifyingGlass, 
-    ArrowsCounterClockwise, 
-    PencilSimple, 
-    X, 
+import {
+    Database,
+    MagnifyingGlassIcon,
+    ArrowsCounterClockwise,
+    PencilSimple,
+    X,
     ArrowRight,
     Question,
     CaretLeft,
@@ -21,7 +21,7 @@ export default function Index({ entries, filters, tenants, auth }) {
     const [tenantId, setTenantId] = useState(filters.tenant_id || '');
     const [sourceLang, setSourceLang] = useState(filters.source_lang || '');
     const [targetLang, setTargetLang] = useState(filters.target_lang || '');
-    
+
     // Edit modal states
     const [editTarget, setEditTarget] = useState(null);
     const [modalOpen, setModalOpen] = useState(false);
@@ -71,7 +71,7 @@ export default function Index({ entries, filters, tenants, auth }) {
     const handleFormSubmit = (e) => {
         e.preventDefault();
         if (!editTarget) return;
-        
+
         put(route('memory.update', editTarget.id), {
             onSuccess: () => {
                 setModalOpen(false);
@@ -102,7 +102,7 @@ export default function Index({ entries, filters, tenants, auth }) {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-6 gap-3 bg-atlas-card border border-atlas-border rounded-card p-4 text-xs">
                 {/* Search */}
                 <div className="relative md:col-span-2">
-                    <MagnifyingGlass className="absolute left-3 top-2.5 h-3.5 w-3.5 text-atlas-secondary" />
+                    <MagnifyingGlassIcon className="absolute left-3 top-2.5 h-3.5 w-3.5 text-atlas-secondary" />
                     <input
                         type="text"
                         value={search}
@@ -142,7 +142,7 @@ export default function Index({ entries, filters, tenants, auth }) {
                             router.get(route('memory.index'), { ...filters, source_lang: e.target.value }, { replace: true, preserveState: true });
                         }}
                         placeholder="Asal (e.g. id)"
-                        className="w-full px-3 py-2 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary outline-none focus:border-atlas-accent/50 placeholder:text-atlas-secondary/70 text-xs text-center font-mono"
+                        className="w-full px-3 py-2 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary outline-none focus:border-atlas-accent/50 placeholder:text-atlas-secondary/70 text-xs text-center font-sans"
                     />
                 </div>
 
@@ -157,7 +157,7 @@ export default function Index({ entries, filters, tenants, auth }) {
                             router.get(route('memory.index'), { ...filters, target_lang: e.target.value }, { replace: true, preserveState: true });
                         }}
                         placeholder="Target (e.g. en)"
-                        className="w-full px-3 py-2 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary outline-none focus:border-atlas-accent/50 placeholder:text-atlas-secondary/70 text-xs text-center font-mono"
+                        className="w-full px-3 py-2 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary outline-none focus:border-atlas-accent/50 placeholder:text-atlas-secondary/70 text-xs text-center font-sans"
                     />
                 </div>
 
@@ -192,26 +192,26 @@ export default function Index({ entries, filters, tenants, auth }) {
                             </thead>
                             <tbody className="divide-y divide-atlas-border/50 text-atlas-secondary">
                                 {entries.data.map((entry) => (
-                                    <tr 
-                                        key={entry.id} 
+                                    <tr
+                                        key={entry.id}
                                         className="hover:bg-atlas-hover/30 transition-colors duration-150"
                                     >
                                         {isAdmin && <td className="px-6 py-3.5 font-medium text-atlas-primary">{entry.tenant_name}</td>}
                                         <td className="px-6 py-3.5">
-                                            <div className="flex items-center gap-1 font-mono text-[10px] text-atlas-primary">
+                                            <div className="flex items-center gap-1 font-sans text-[10px] text-atlas-primary">
                                                 <span>{entry.source_lang}</span>
                                                 <ArrowRight className="h-3 w-3 text-atlas-secondary" />
                                                 <span>{entry.target_lang}</span>
                                             </div>
                                         </td>
-                                        <td className="px-6 py-3.5 font-mono text-[9px] uppercase tracking-wider">{entry.content_type}</td>
+                                        <td className="px-6 py-3.5 font-sans text-[9px] uppercase tracking-wider">{entry.content_type}</td>
                                         <td className="px-6 py-3.5 max-w-[220px] truncate font-medium text-atlas-primary" title={entry.source_text_full}>
                                             {entry.source_text}
                                         </td>
-                                        <td className="px-6 py-3.5 max-w-[220px] truncate font-mono text-atlas-secondary" title={entry.translated_text_full}>
+                                        <td className="px-6 py-3.5 max-w-[220px] truncate font-sans text-atlas-secondary" title={entry.translated_text_full}>
                                             {entry.translated_text}
                                         </td>
-                                        <td className="px-6 py-3.5 font-mono text-[10px] text-atlas-accent font-semibold">{entry.usage_count}</td>
+                                        <td className="px-6 py-3.5 font-sans text-[10px] text-atlas-accent font-semibold">{entry.usage_count}</td>
                                         <td className="px-6 py-3.5 text-[10px]">
                                             {new Date(entry.updated_at).toLocaleString('id-ID')}
                                         </td>
@@ -254,7 +254,7 @@ export default function Index({ entries, filters, tenants, auth }) {
             {/* Pagination */}
             {entries.links && entries.links.length > 3 && (
                 <div className="flex items-center justify-between pt-2">
-                    <p className="text-[11px] text-atlas-secondary font-mono">
+                    <p className="text-[11px] text-atlas-secondary font-sans">
                         Menampilkan {entries.meta?.from || 0} - {entries.meta?.to || 0} dari {entries.meta?.total || 0} entri cache
                     </p>
                     <div className="flex items-center gap-1.5 text-xs">
@@ -267,11 +267,10 @@ export default function Index({ entries, filters, tenants, auth }) {
                                 <Link
                                     key={idx}
                                     href={link.url}
-                                    className={`h-8 px-3 rounded-button border flex items-center justify-center font-semibold transition-colors ${
-                                        link.active 
-                                            ? 'bg-atlas-accent/15 border-atlas-accent/30 text-atlas-accent' 
+                                    className={`h-8 px-3 rounded-button border flex items-center justify-center font-semibold transition-colors ${link.active
+                                            ? 'bg-atlas-accent/15 border-atlas-accent/30 text-atlas-accent'
                                             : 'bg-atlas-surface border-atlas-border text-atlas-secondary hover:text-atlas-primary hover:bg-atlas-hover'
-                                    }`}
+                                        }`}
                                 >
                                     {isPrev ? <CaretLeft className="h-4 w-4" /> : isNext ? <CaretRight className="h-4 w-4" /> : link.label}
                                 </Link>
@@ -306,7 +305,7 @@ export default function Index({ entries, filters, tenants, auth }) {
                                 <label className="block text-[10px] uppercase font-bold tracking-wider text-atlas-secondary mb-1.5">
                                     Teks Asal (Source Text)
                                 </label>
-                                <div className="p-3 bg-atlas-surface border border-atlas-border/50 rounded-input text-atlas-primary font-mono text-[11px] max-h-[140px] overflow-y-auto select-text break-words">
+                                <div className="p-3 bg-atlas-surface border border-atlas-border/50 rounded-input text-atlas-primary font-sans text-[11px] max-h-[140px] overflow-y-auto select-text break-words">
                                     {editTarget?.source_text_full}
                                 </div>
                             </div>
@@ -322,9 +321,9 @@ export default function Index({ entries, filters, tenants, auth }) {
                                     value={data.translated_text}
                                     onChange={(e) => setData('translated_text', e.target.value)}
                                     placeholder="Ketik hasil terjemahan koreksi..."
-                                    className="w-full px-3 py-2 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary font-mono text-[11px] outline-none focus:border-atlas-accent/50 resize-y"
+                                    className="w-full px-3 py-2 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary font-sans text-[11px] outline-none focus:border-atlas-accent/50 resize-y"
                                 />
-                                {errors.translated_text && <p className="text-atlas-danger mt-1 font-mono text-[10px]">{errors.translated_text}</p>}
+                                {errors.translated_text && <p className="text-atlas-danger mt-1 font-sans text-[10px]">{errors.translated_text}</p>}
                             </div>
 
                             <div className="p-3 bg-atlas-accent/5 border border-atlas-accent/15 rounded-input">

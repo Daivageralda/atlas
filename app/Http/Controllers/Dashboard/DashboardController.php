@@ -31,7 +31,8 @@ class DashboardController extends Controller
             'failure_rate'         => $this->failureRate($today, $isAdmin, $tenantScope),
             'estimated_cost_today' => (float) (clone $logQuery)->sum('cost_estimate') * config('services.exchange.usd_to_idr'),
             'active_users'         => $isAdmin ? User::where('status', 'active')->count() : null,
-            'active_api_keys'      => ApiKey::where('status', 'active')
+            'active_api_keys'      => ApiKey::whereNull('revoked_at')
+                                        ->where(fn($q) => $q->whereNull('expires_at')->orWhere('expires_at', '>', now()))
                                         ->when(!$isAdmin, fn($q) => $q->where('tenant_id', $tenantScope))
                                         ->count(),
             'cache_hit_rate'       => $this->cacheHitRate($today, $isAdmin, $tenantScope),

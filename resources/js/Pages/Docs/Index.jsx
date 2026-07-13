@@ -3,12 +3,12 @@ import { Head } from '@inertiajs/react';
 import {
     BookOpen,
     Key,
-    ArrowsLeftRight,
-    MagnifyingGlass,
+    ArrowsLeftRightIcon,
+    MagnifyingGlassIcon,
     Warning,
-    CheckCircle,
-    XCircle,
-    Lightning,
+    CheckCircleIcon,
+    XCircleIcon,
+    LightningIcon,
 } from '@phosphor-icons/react';
 import { CodeBlock } from '../../Components/ui/CodeBlock';
 import { Badge } from '../../Components/ui/Badge';
@@ -18,16 +18,16 @@ export default function Index({ supportedLanguages, baseUrl }) {
     const [activeTab, setActiveTab] = useState('auth');
 
     const tabs = [
-        { key: 'auth',      label: 'Autentikasi',      icon: Key },
-        { key: 'translate', label: 'POST /translate',   icon: ArrowsLeftRight },
-        { key: 'status',    label: 'GET /translate/{id}', icon: MagnifyingGlass },
-        { key: 'errors',    label: 'Error Codes',       icon: Warning },
+        { key: 'auth', label: 'Autentikasi', icon: Key },
+        { key: 'translate', label: 'POST /translate', icon: ArrowsLeftRightIcon },
+        { key: 'status', label: 'GET /translate/{id}', icon: MagnifyingGlassIcon },
+        { key: 'errors', label: 'Error Codes', icon: Warning },
     ];
 
     const apiBase = `${baseUrl}/api/v1`;
-    const exampleKey = 'atlas_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
-    const exampleId  = '01HXYZ4ABCDE5F6G7H8J9K0M1N';
-    const langList   = supportedLanguages.join(', ');
+    const exampleKey = 'ak_v1_XXXXXXXXXXXXXXXXXXXXXXXXXX.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+    const exampleId = '0190a6e3-54be-7cba-9a5c-7d9a8c0fbd00';
+    const langList = supportedLanguages.join(', ');
 
     const handleKeyDown = (e, index) => {
         let nextIndex = index;
@@ -49,7 +49,7 @@ export default function Index({ supportedLanguages, baseUrl }) {
     /* ── code snippets ── */
     const curlTranslate = `curl -X POST ${apiBase}/translate \\
   -H "Content-Type: application/json" \\
-  -H "X-API-Key: ${exampleKey}" \\
+  -H "Authorization: Bearer ${exampleKey}" \\
   -d '{
     "content_type": "plain",
     "source_lang": "id",
@@ -61,7 +61,7 @@ export default function Index({ supportedLanguages, baseUrl }) {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    'X-API-Key': '${exampleKey}',
+    'Authorization': 'Bearer ${exampleKey}',
   },
   body: JSON.stringify({
     content_type: 'plain',
@@ -103,7 +103,7 @@ console.log(data.data.translated_text);`;
 }`;
 
     const curlStatus = `curl -X GET ${apiBase}/translate/${exampleId} \\
-  -H "X-API-Key: ${exampleKey}"`;
+  -H "Authorization: Bearer ${exampleKey}"`;
 
     const successStatus = `{
   "success": true,
@@ -124,10 +124,10 @@ console.log(data.data.translated_text);`;
 
     const errorCodes = [
         { code: '200', variant: 'success', title: 'OK', desc: 'Permintaan berhasil diproses.' },
-        { code: '401', variant: 'danger',  title: 'Unauthorized', desc: 'Header X-API-Key tidak valid atau kedaluwarsa.' },
+        { code: '401', variant: 'danger', title: 'Unauthorized', desc: 'Header X-API-Key tidak valid atau kedaluwarsa.' },
         { code: '422', variant: 'warning', title: 'Unprocessable Entity', desc: 'Validasi input gagal. Periksa format payload Anda.' },
         { code: '429', variant: 'warning', title: 'Too Many Requests', desc: 'Rate limit tercapai. Silakan coba lagi nanti.' },
-        { code: '502', variant: 'danger',  title: 'Bad Gateway', desc: 'Seluruh provider AI gagal merespons permintaan translasi.' },
+        { code: '502', variant: 'danger', title: 'Bad Gateway', desc: 'Seluruh provider AI gagal merespons permintaan translasi.' },
     ];
 
     return (
@@ -164,11 +164,10 @@ console.log(data.data.translated_text);`;
                                     aria-selected={isActive}
                                     onClick={() => setActiveTab(key)}
                                     onKeyDown={(e) => handleKeyDown(e, index)}
-                                    className={`w-full flex items-center gap-2.5 px-4 py-3 rounded-button border text-left font-semibold transition-all duration-150 outline-none ${
-                                        isActive
-                                            ? 'bg-atlas-card border-atlas-border text-atlas-accent shadow-md shadow-atlas-accent/5'
-                                            : 'bg-transparent border-transparent text-atlas-secondary hover:bg-atlas-card hover:text-atlas-primary'
-                                    }`}
+                                    className={`w-full flex items-center gap-2.5 px-4 py-3 rounded-button border text-left font-semibold transition-all duration-150 outline-none ${isActive
+                                        ? 'bg-atlas-card border-atlas-border text-atlas-accent shadow-md shadow-atlas-accent/5'
+                                        : 'bg-transparent border-transparent text-atlas-secondary hover:bg-atlas-card hover:text-atlas-primary'
+                                        }`}
                                 >
                                     <Icon className="h-4 w-4 flex-shrink-0" />
                                     <span className="leading-tight">{label}</span>
@@ -182,7 +181,7 @@ console.log(data.data.translated_text);`;
                         <p className="font-bold text-atlas-secondary uppercase tracking-widest text-[10px]">Bahasa Didukung</p>
                         <div className="flex flex-wrap gap-1.5">
                             {supportedLanguages.map(lang => (
-                                <Badge key={lang} variant="neutral" className="uppercase font-mono text-[9px] px-2.5 py-0.5">{lang}</Badge>
+                                <Badge key={lang} variant="neutral" className="uppercase font-sans text-[9px] px-2.5 py-0.5">{lang}</Badge>
                             ))}
                         </div>
                     </div>
@@ -201,19 +200,22 @@ console.log(data.data.translated_text);`;
                                     Atlas mengamankan endpoint menggunakan token otorisasi per-tenant. Setiap token terikat dengan log kuota, estimasi biaya, dan analytics tenant bersangkutan.
                                 </p>
                                 <p>
-                                    Dapatkan atau buat API Key baru langsung pada panel <a href="/api-keys" className="text-atlas-accent hover:underline font-semibold font-mono">API Key</a>.
+                                    Dapatkan atau buat API Key baru langsung pada panel <a href="/api-keys" className="text-atlas-accent hover:underline font-semibold font-sans">API Key</a>.
                                 </p>
                             </div>
 
                             <div className="space-y-3">
-                                <SectionLabel>Header Otorisasi</SectionLabel>
-                                <CodeBlock code={`X-API-Key: ${exampleKey}`} />
+                                <SectionLabel>Header Otorisasi (Rekomendasi)</SectionLabel>
+                                <CodeBlock code={`Authorization: Bearer ${exampleKey}`} />
+                                <p className="text-[10px] text-atlas-secondary mt-1">
+                                    Atlas juga mendukung header lama <code className="text-atlas-accent font-sans bg-atlas-hover px-1 rounded">X-API-Key: {exampleKey}</code> untuk kompatibilitas.
+                                </p>
                             </div>
 
                             <div className="space-y-3">
                                 <SectionLabel>Uji Koneksi dengan cURL</SectionLabel>
                                 <CodeBlock code={`curl -I -X GET ${apiBase}/languages \\
-  -H "X-API-Key: ${exampleKey}"`} />
+  -H "Authorization: Bearer ${exampleKey}"`} />
                             </div>
 
                             <InfoCard variant="warning">
@@ -227,12 +229,12 @@ console.log(data.data.translated_text);`;
                     {/* ── POST TRANSLATE ── */}
                     {activeTab === 'translate' && (
                         <div className="space-y-6">
-                            <SectionHeader icon={ArrowsLeftRight} title="Request Translation" subtitle="Kirim konten teks untuk diterjemahkan oleh SumoPod Engine." />
+                            <SectionHeader icon={ArrowsLeftRightIcon} title="Request Translation" subtitle="Kirim konten teks untuk diterjemahkan oleh SumoPod Engine." />
 
                             {/* REST Pill */}
                             <div className="flex items-center gap-3 p-3 rounded-button bg-atlas-surface border border-atlas-border w-fit">
-                                <span className="px-2 py-0.5 rounded bg-atlas-hover border border-atlas-info text-atlas-info font-bold text-[10px] tracking-wider font-mono">POST</span>
-                                <code className="text-atlas-primary font-mono text-[11px] tracking-wide select-all">{apiBase}/translate</code>
+                                <span className="px-2 py-0.5 rounded bg-atlas-hover border border-atlas-info text-atlas-info font-bold text-[10px] tracking-wider font-sans">POST</span>
+                                <code className="text-atlas-primary font-sans text-[11px] tracking-wide select-all">{apiBase}/translate</code>
                             </div>
 
                             <div className="space-y-3">
@@ -241,17 +243,17 @@ console.log(data.data.translated_text);`;
                                     <Table>
                                         <TableHeader>
                                             <TableRow className="hover:bg-transparent">
-                                                <TableHead className="w-1/4 font-mono font-bold tracking-wider text-[10px]">Parameter</TableHead>
-                                                <TableHead className="w-1/6 font-mono font-bold tracking-wider text-[10px]">Tipe</TableHead>
-                                                <TableHead className="w-1/6 font-mono font-bold tracking-wider text-[10px]">Status</TableHead>
-                                                <TableHead className="font-mono font-bold tracking-wider text-[10px]">Keterangan</TableHead>
+                                                <TableHead className="w-1/4 font-sans font-bold tracking-wider text-[10px]">Parameter</TableHead>
+                                                <TableHead className="w-1/6 font-sans font-bold tracking-wider text-[10px]">Tipe</TableHead>
+                                                <TableHead className="w-1/6 font-sans font-bold tracking-wider text-[10px]">Status</TableHead>
+                                                <TableHead className="font-sans font-bold tracking-wider text-[10px]">Keterangan</TableHead>
                                             </TableRow>
                                         </TableHeader>
                                         <TableBody>
-                                            <FieldRow field="content_type" type="string" required desc={<>Format struktur teks input. Gunakan: <code className="text-atlas-accent font-mono bg-atlas-hover px-1.5 py-0.5 rounded">plain</code>, <code className="text-atlas-accent font-mono bg-atlas-hover px-1.5 py-0.5 rounded">html</code>, atau <code className="text-atlas-accent font-mono bg-atlas-hover px-1.5 py-0.5 rounded">markdown</code>.</>} />
-                                            <FieldRow field="source_lang" type="string" required desc={<>Locale kode bahasa sumber (2 karakter). Didukung: <span className="text-atlas-primary font-mono font-semibold">{langList}</span>.</>} />
+                                            <FieldRow field="content_type" type="string" required desc={<>Format struktur teks input. Gunakan: <code className="text-atlas-accent font-sans bg-atlas-hover px-1.5 py-0.5 rounded">plain</code>, <code className="text-atlas-accent font-sans bg-atlas-hover px-1.5 py-0.5 rounded">html</code>, atau <code className="text-atlas-accent font-sans bg-atlas-hover px-1.5 py-0.5 rounded">markdown</code>.</>} />
+                                            <FieldRow field="source_lang" type="string" required desc={<>Locale kode bahasa sumber (2 karakter). Didukung: <span className="text-atlas-primary font-sans font-semibold">{langList}</span>.</>} />
                                             <FieldRow field="target_lang" type="string" required desc="Locale kode bahasa tujuan (2 karakter)." />
-                                            <FieldRow field="text"        type="string" required desc="Konten teks utama yang akan diterjemahkan (Maks. 50.000 karakter)." />
+                                            <FieldRow field="text" type="string" required desc="Konten teks utama yang akan diterjemahkan (Maks. 50.000 karakter)." />
                                         </TableBody>
                                     </Table>
                                 </div>
@@ -270,9 +272,9 @@ console.log(data.data.translated_text);`;
 
                             <div className="space-y-4">
                                 <SectionLabel>Responses</SectionLabel>
-                                
+
                                 <div className="space-y-3">
-                                    <div className="flex items-center gap-2 font-mono text-[10px]">
+                                    <div className="flex items-center gap-2 font-sans text-[10px]">
                                         <Badge variant="success">200 OK</Badge>
                                         <span className="text-atlas-secondary">Translasi Baru Berhasil</span>
                                     </div>
@@ -280,7 +282,7 @@ console.log(data.data.translated_text);`;
                                 </div>
 
                                 <div className="space-y-3">
-                                    <div className="flex items-center gap-2 font-mono text-[10px]">
+                                    <div className="flex items-center gap-2 font-sans text-[10px]">
                                         <Badge variant="info">200 OK</Badge>
                                         <span className="text-atlas-secondary">Translasi Diambil dari Memori Cache (Biaya $0)</span>
                                     </div>
@@ -293,12 +295,12 @@ console.log(data.data.translated_text);`;
                     {/* ── GET STATUS ── */}
                     {activeTab === 'status' && (
                         <div className="space-y-6">
-                            <SectionHeader icon={MagnifyingGlass} title="Detail Transaksi" subtitle="Cari dan ambil record translasi di database menggunakan ULID log." />
+                            <SectionHeader icon={MagnifyingGlassIcon} title="Detail Transaksi" subtitle="Cari dan ambil record translasi di database menggunakan ULID log." />
 
                             {/* REST Pill */}
                             <div className="flex items-center gap-3 p-3 rounded-button bg-atlas-surface border border-atlas-border w-fit">
-                                <span className="px-2 py-0.5 rounded bg-atlas-hover border border-atlas-success text-atlas-success font-bold text-[10px] tracking-wider font-mono">GET</span>
-                                <code className="text-atlas-primary font-mono text-[11px] tracking-wide select-all">{apiBase}/translate/<span className="text-atlas-accent">{'{id}'}</span></code>
+                                <span className="px-2 py-0.5 rounded bg-atlas-hover border border-atlas-success text-atlas-success font-bold text-[10px] tracking-wider font-sans">GET</span>
+                                <code className="text-atlas-primary font-sans text-[11px] tracking-wide select-all">{apiBase}/translate/<span className="text-atlas-accent">{'{id}'}</span></code>
                             </div>
 
                             <div className="space-y-3">
@@ -307,15 +309,15 @@ console.log(data.data.translated_text);`;
                                     <Table>
                                         <TableHeader>
                                             <TableRow className="hover:bg-transparent">
-                                                <TableHead className="w-1/4 font-mono font-bold tracking-wider text-[10px]">Variabel</TableHead>
-                                                <TableHead className="w-1/4 font-mono font-bold tracking-wider text-[10px]">Tipe</TableHead>
-                                                <TableHead className="font-mono font-bold tracking-wider text-[10px]">Keterangan</TableHead>
+                                                <TableHead className="w-1/4 font-sans font-bold tracking-wider text-[10px]">Variabel</TableHead>
+                                                <TableHead className="w-1/4 font-sans font-bold tracking-wider text-[10px]">Tipe</TableHead>
+                                                <TableHead className="font-sans font-bold tracking-wider text-[10px]">Keterangan</TableHead>
                                             </TableRow>
                                         </TableHeader>
                                         <TableBody>
                                             <TableRow>
-                                                <TableCell className="font-mono text-atlas-accent font-semibold">id</TableCell>
-                                                <TableCell className="text-atlas-secondary font-mono">string (ULID)</TableCell>
+                                                <TableCell className="font-sans text-atlas-accent font-semibold">id</TableCell>
+                                                <TableCell className="text-atlas-secondary font-sans">string (ULID)</TableCell>
                                                 <TableCell className="text-atlas-secondary leading-relaxed">Unique ID log transaksi yang diperoleh dari response endpoint POST.</TableCell>
                                             </TableRow>
                                         </TableBody>
@@ -330,9 +332,9 @@ console.log(data.data.translated_text);`;
 
                             <div className="space-y-4">
                                 <SectionLabel>Responses</SectionLabel>
-                                
+
                                 <div className="space-y-3">
-                                    <div className="flex items-center gap-2 font-mono text-[10px]">
+                                    <div className="flex items-center gap-2 font-sans text-[10px]">
                                         <Badge variant="success">200 OK</Badge>
                                         <span className="text-atlas-secondary">Data Transaksi Ditemukan</span>
                                     </div>
@@ -340,7 +342,7 @@ console.log(data.data.translated_text);`;
                                 </div>
 
                                 <div className="space-y-3">
-                                    <div className="flex items-center gap-2 font-mono text-[10px]">
+                                    <div className="flex items-center gap-2 font-sans text-[10px]">
                                         <Badge variant="danger">404 NOT FOUND</Badge>
                                         <span className="text-atlas-secondary">Transaksi Tidak Ditemukan</span>
                                     </div>
@@ -376,18 +378,18 @@ console.log(data.data.translated_text);`;
                                     <Table>
                                         <TableHeader>
                                             <TableRow className="hover:bg-transparent">
-                                                <TableHead className="w-1/6 font-mono font-bold tracking-wider text-[10px]">Status</TableHead>
-                                                <TableHead className="w-1/4 font-mono font-bold tracking-wider text-[10px]">Nama</TableHead>
-                                                <TableHead className="font-mono font-bold tracking-wider text-[10px]">Penyebab / Solusi</TableHead>
+                                                <TableHead className="w-1/6 font-sans font-bold tracking-wider text-[10px]">Status</TableHead>
+                                                <TableHead className="w-1/4 font-sans font-bold tracking-wider text-[10px]">Nama</TableHead>
+                                                <TableHead className="font-sans font-bold tracking-wider text-[10px]">Penyebab / Solusi</TableHead>
                                             </TableRow>
                                         </TableHeader>
                                         <TableBody>
                                             {errorCodes.map(({ code, variant, title, desc }) => (
                                                 <TableRow key={code}>
                                                     <TableCell>
-                                                        <Badge variant={variant} className="font-mono">{code}</Badge>
+                                                        <Badge variant={variant} className="font-sans">{code}</Badge>
                                                     </TableCell>
-                                                    <TableCell className="font-semibold text-atlas-primary font-mono">{title}</TableCell>
+                                                    <TableCell className="font-semibold text-atlas-primary font-sans">{title}</TableCell>
                                                     <TableCell className="text-atlas-secondary leading-relaxed">{desc}</TableCell>
                                                 </TableRow>
                                             ))}
@@ -412,7 +414,7 @@ function SectionHeader({ icon: Icon, title, subtitle }) {
                 <Icon className="h-5 w-5" />
             </div>
             <div>
-                <h2 className="text-sm font-bold text-atlas-primary font-mono tracking-wide">{title}</h2>
+                <h2 className="text-sm font-bold text-atlas-primary font-sans tracking-wide">{title}</h2>
                 <p className="text-atlas-secondary mt-1 text-[11px] leading-relaxed">{subtitle}</p>
             </div>
         </div>
@@ -421,7 +423,7 @@ function SectionHeader({ icon: Icon, title, subtitle }) {
 
 function SectionLabel({ children }) {
     return (
-        <p className="text-[10px] font-bold uppercase tracking-wider text-atlas-secondary font-mono">{children}</p>
+        <p className="text-[10px] font-bold uppercase tracking-wider text-atlas-secondary font-sans">{children}</p>
     );
 }
 
@@ -439,12 +441,12 @@ function InfoCard({ children, variant }) {
 function FieldRow({ field, type, required, desc }) {
     return (
         <TableRow>
-            <TableCell className="font-mono text-atlas-accent font-semibold">{field}</TableCell>
-            <TableCell className="text-atlas-secondary font-mono text-[11px]">{type}</TableCell>
+            <TableCell className="font-sans text-atlas-accent font-semibold">{field}</TableCell>
+            <TableCell className="text-atlas-secondary font-sans text-[11px]">{type}</TableCell>
             <TableCell>
                 {required
-                    ? <span className="px-2 py-0.5 rounded bg-atlas-danger/10 border border-atlas-danger/25 text-atlas-danger text-[9px] font-bold tracking-wider font-mono">required</span>
-                    : <span className="px-2 py-0.5 rounded bg-atlas-hover border border-atlas-border text-atlas-secondary text-[9px] font-bold tracking-wider font-mono">optional</span>}
+                    ? <span className="px-2 py-0.5 rounded bg-atlas-danger/10 border border-atlas-danger/25 text-atlas-danger text-[9px] font-bold tracking-wider font-sans">required</span>
+                    : <span className="px-2 py-0.5 rounded bg-atlas-hover border border-atlas-border text-atlas-secondary text-[9px] font-bold tracking-wider font-sans">optional</span>}
             </TableCell>
             <TableCell className="text-atlas-secondary leading-relaxed">{desc}</TableCell>
         </TableRow>

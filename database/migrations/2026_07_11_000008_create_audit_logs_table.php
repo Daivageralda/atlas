@@ -9,8 +9,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('audit_logs', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('actor_user_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->uuid('id')->primary();
+            $table->foreignUuid('actor_user_id')->nullable()->constrained('users')->nullOnDelete();
             $table->string('entity_type');
             $table->string('entity_id');
             $table->enum('action', ['created', 'updated', 'deleted']);

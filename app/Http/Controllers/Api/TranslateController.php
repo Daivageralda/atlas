@@ -29,18 +29,8 @@ class TranslateController extends Controller
         $startTime = microtime(true);
 
         // Fetch auth context verified from AuthenticateApiKey middleware
-        $tenant = $request->get('_tenant') ?? $request->route()->parameter('_tenant') ?? $request->input('_tenant') ?? $request->attributes->get('_tenant');
-        $apiKey = $request->get('_api_key') ?? $request->route()->parameter('_api_key') ?? $request->input('_api_key') ?? $request->attributes->get('_api_key');
-
-        if (!$tenant || !$apiKey) {
-            // Fallback: reload context manually from header key
-            $rawKey = $request->header('X-API-Key');
-            if ($rawKey) {
-                $keyHash = hash('sha256', $rawKey);
-                $apiKey = \App\Models\ApiKey::where('key_hash', $keyHash)->first();
-                $tenant = $apiKey ? $apiKey->tenant : null;
-            }
-        }
+        $tenant = $request->get('_tenant');
+        $apiKey = $request->get('_api_key');
 
         if (!$tenant || !$apiKey) {
             return $this->error('Unauthorized API Key credentials.', 401);

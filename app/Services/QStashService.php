@@ -22,7 +22,6 @@ class QStashService
     public function dispatch(string $type, array $payload): QueueJob
     {
         $job = QueueJob::create([
-            'id'      => Str::ulid()->toBase32(),
             'type'    => $type,
             'payload' => $payload,
             'status'  => 'pending',

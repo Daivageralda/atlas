@@ -9,9 +9,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('translation_logs', function (Blueprint $table) {
-            $table->ulid('id')->primary();
-            $table->foreignId('tenant_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('api_key_id')->nullable()->constrained('api_keys')->nullOnDelete();
+            $table->uuid('id')->primary();
+            $table->foreignUuid('tenant_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('api_key_id')->nullable()->constrained('api_keys')->nullOnDelete();
             $table->string('source_lang', 10);
             $table->string('target_lang', 10);
             $table->enum('content_type', ['plain', 'html', 'markdown']);

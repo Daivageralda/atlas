@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { Head, router } from '@inertiajs/react';
-import { 
-    ChartBar, 
-    CalendarBlank, 
-    ArrowsCounterClockwise, 
-    TrendUp, 
-    Lightning, 
-    Coins, 
-    Database, 
-    Clock, 
-    Pulse 
+import {
+    ChartBar,
+    CalendarBlank,
+    ArrowsCounterClockwise,
+    TrendUp,
+    LightningIcon,
+    Coins,
+    Database,
+    Clock,
+    Pulse
 } from '@phosphor-icons/react';
-import { 
+import {
     AreaChart, Area, BarChart, Bar, LineChart, Line,
     PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid,
     Tooltip, ResponsiveContainer, Legend
@@ -24,7 +24,7 @@ const CHART_COLORS = ['#3ECF8E', '#3B82F6', '#F59E0B', '#EF4444', '#8B5CF6'];
 function AtlasTooltip({ active, payload, label }) {
     if (!active || !payload?.length) return null;
     return (
-        <div className="bg-atlas-card border border-atlas-border rounded-input p-3 text-[10px] font-mono shadow-2xl">
+        <div className="bg-atlas-card border border-atlas-border rounded-input p-3 text-[10px] font-sans shadow-2xl">
             <p className="text-atlas-secondary mb-1.5 font-bold">{label}</p>
             <div className="space-y-1">
                 {payload.map((p, i) => (
@@ -106,7 +106,7 @@ export default function Index({ kpi, charts, filters, tenants, auth }) {
                             type="date"
                             value={dateFrom}
                             onChange={(e) => setDateFrom(e.target.value)}
-                            className="w-full pl-9 pr-3 py-2 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary outline-none focus:border-atlas-accent/50 text-xs font-mono"
+                            className="w-full pl-9 pr-3 py-2 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary outline-none focus:border-atlas-accent/50 text-xs font-sans"
                         />
                     </div>
 
@@ -117,7 +117,7 @@ export default function Index({ kpi, charts, filters, tenants, auth }) {
                             type="date"
                             value={dateTo}
                             onChange={(e) => setDateTo(e.target.value)}
-                            className="w-full pl-9 pr-3 py-2 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary outline-none focus:border-atlas-accent/50 text-xs font-mono"
+                            className="w-full pl-9 pr-3 py-2 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary outline-none focus:border-atlas-accent/50 text-xs font-sans"
                         />
                     </div>
                 </div>
@@ -152,7 +152,7 @@ export default function Index({ kpi, charts, filters, tenants, auth }) {
                     </div>
 
                     {/* Charts Grid (2 columns, 3 rows) */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 text-[10px] font-mono">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 text-[10px] font-sans">
                         {/* 1. Requests per Day */}
                         <div className="bg-atlas-card border border-atlas-border rounded-card p-5">
                             <h2 className="text-xs font-bold text-atlas-primary mb-4 flex items-center gap-1.5">
@@ -164,8 +164,8 @@ export default function Index({ kpi, charts, filters, tenants, auth }) {
                                     <AreaChart data={charts.requests_per_day}>
                                         <defs>
                                             <linearGradient id="colorRequests" x1="0" y1="0" x2="0" y2="1">
-                                                <stop offset="5%" stopColor="#3ECF8E" stopOpacity={0.25}/>
-                                                <stop offset="95%" stopColor="#3ECF8E" stopOpacity={0.01}/>
+                                                <stop offset="5%" stopColor="#3ECF8E" stopOpacity={0.25} />
+                                                <stop offset="95%" stopColor="#3ECF8E" stopOpacity={0.01} />
                                             </linearGradient>
                                         </defs>
                                         <CartesianGrid stroke="#2A2A2E" strokeDasharray="3 3" opacity={0.5} />
@@ -239,8 +239,8 @@ export default function Index({ kpi, charts, filters, tenants, auth }) {
                                     <AreaChart data={charts.cost_per_day}>
                                         <defs>
                                             <linearGradient id="colorCost" x1="0" y1="0" x2="0" y2="1">
-                                                <stop offset="5%" stopColor="#F59E0B" stopOpacity={0.25}/>
-                                                <stop offset="95%" stopColor="#F59E0B" stopOpacity={0.01}/>
+                                                <stop offset="5%" stopColor="#F59E0B" stopOpacity={0.25} />
+                                                <stop offset="95%" stopColor="#F59E0B" stopOpacity={0.01} />
                                             </linearGradient>
                                         </defs>
                                         <CartesianGrid stroke="#2A2A2E" strokeDasharray="3 3" opacity={0.5} />
@@ -256,7 +256,7 @@ export default function Index({ kpi, charts, filters, tenants, auth }) {
                         {/* 5. Token Usage per Day */}
                         <div className="bg-atlas-card border border-atlas-border rounded-card p-5">
                             <h2 className="text-xs font-bold text-atlas-primary mb-4 flex items-center gap-1.5">
-                                <Lightning className="h-4 w-4 text-atlas-accent" />
+                                <LightningIcon className="h-4 w-4 text-atlas-accent" />
                                 Konsumsi Volume Token
                             </h2>
                             <div className="h-[260px] w-full">

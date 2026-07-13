@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Head, Link, router } from '@inertiajs/react';
-import { 
-    Scroll, 
-    MagnifyingGlass, 
-    ArrowsCounterClockwise, 
+import {
+    Scroll,
+    MagnifyingGlassIcon,
+    ArrowsCounterClockwise,
     CalendarBlank,
     ArrowRight,
     Question,
@@ -82,7 +82,7 @@ export default function Index({ logs, filters, tenants, auth }) {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 bg-atlas-card border border-atlas-border rounded-card p-4 text-xs">
                 {/* Search */}
                 <div className="relative lg:col-span-2">
-                    <MagnifyingGlass className="absolute left-3 top-2.5 h-3.5 w-3.5 text-atlas-secondary" />
+                    <MagnifyingGlassIcon className="absolute left-3 top-2.5 h-3.5 w-3.5 text-atlas-secondary" />
                     <input
                         type="text"
                         value={search}
@@ -190,44 +190,43 @@ export default function Index({ logs, filters, tenants, auth }) {
                             </thead>
                             <tbody className="divide-y divide-atlas-border/50 text-atlas-secondary">
                                 {logs.data.map((log) => (
-                                    <tr 
-                                        key={log.id} 
+                                    <tr
+                                        key={log.id}
                                         onClick={() => router.get(route('logs.show', log.id))}
                                         className="hover:bg-atlas-hover/50 cursor-pointer transition-colors duration-100"
                                     >
-                                        <td className="px-6 py-3.5 font-mono text-[10px] text-atlas-primary select-all">
+                                        <td className="px-6 py-3.5 font-sans text-[10px] text-atlas-primary select-all">
                                             {log.id.substring(0, 8)}...
                                         </td>
                                         {isAdmin && <td className="px-6 py-3.5 font-medium text-atlas-primary">{log.tenant_name}</td>}
                                         <td className="px-6 py-3.5">
-                                            <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold border ${
-                                                log.status === 'success' 
-                                                    ? 'text-atlas-success bg-atlas-success/10 border-atlas-success/20' 
+                                            <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold border ${log.status === 'success'
+                                                    ? 'text-atlas-success bg-atlas-success/10 border-atlas-success/20'
                                                     : log.status === 'cached'
-                                                    ? 'text-atlas-accent bg-atlas-accent/10 border-atlas-accent/20'
-                                                    : 'text-atlas-danger bg-atlas-danger/10 border-atlas-danger/20'
-                                            }`}>
+                                                        ? 'text-atlas-accent bg-atlas-accent/10 border-atlas-accent/20'
+                                                        : 'text-atlas-danger bg-atlas-danger/10 border-atlas-danger/20'
+                                                }`}>
                                                 {log.status}
                                             </span>
                                         </td>
-                                        <td className="px-6 py-3.5 font-mono text-[10px]">{log.provider}</td>
-                                        <td className="px-6 py-3.5 font-mono text-[9px] uppercase tracking-wider">{log.content_type}</td>
+                                        <td className="px-6 py-3.5 font-sans text-[10px]">{log.provider}</td>
+                                        <td className="px-6 py-3.5 font-sans text-[9px] uppercase tracking-wider">{log.content_type}</td>
                                         <td className="px-6 py-3.5">
-                                            <div className="flex items-center gap-1 font-mono text-[10px] text-atlas-primary">
+                                            <div className="flex items-center gap-1 font-sans text-[10px] text-atlas-primary">
                                                 <span>{log.source_lang}</span>
                                                 <ArrowRight className="h-3 w-3 text-atlas-secondary" />
                                                 <span>{log.target_lang}</span>
                                             </div>
                                         </td>
-                                        <td className="px-6 py-3.5 font-mono text-[10px]">
+                                        <td className="px-6 py-3.5 font-sans text-[10px]">
                                             <span className={log.retry_count > 0 ? 'text-atlas-warning font-bold' : ''}>
                                                 {log.retry_count}
                                             </span>
                                         </td>
-                                        <td className="px-6 py-3.5 text-right font-mono text-[11px] text-atlas-primary">
+                                        <td className="px-6 py-3.5 text-right font-sans text-[11px] text-atlas-primary">
                                             {log.duration_ms}ms
                                         </td>
-                                        <td className="px-6 py-3.5 text-right font-mono text-[11px] text-atlas-primary">
+                                        <td className="px-6 py-3.5 text-right font-sans text-[11px] text-atlas-primary">
                                             {log.estimated_cost > 0 ? `Rp ${log.estimated_cost.toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}` : '—'}
                                         </td>
                                         <td className="px-6 py-3.5 text-right text-[10px]">
@@ -243,8 +242,8 @@ export default function Index({ logs, filters, tenants, auth }) {
                         <EmptyState
                             icon={Scroll}
                             title="Tidak ada transaksi log"
-                            description={Object.values(filters).some(x => !!x) 
-                                ? "Tidak ditemukan data log yang sesuai dengan filter pencarian Anda." 
+                            description={Object.values(filters).some(x => !!x)
+                                ? "Tidak ditemukan data log yang sesuai dengan filter pencarian Anda."
                                 : "Belum ada riwayat lalu lintas request terjemahan di platform ini."
                             }
                             action={Object.values(filters).some(x => !!x) && (
@@ -263,7 +262,7 @@ export default function Index({ logs, filters, tenants, auth }) {
             {/* Pagination */}
             {logs.links && logs.links.length > 3 && (
                 <div className="flex items-center justify-between pt-2">
-                    <p className="text-[11px] text-atlas-secondary font-mono">
+                    <p className="text-[11px] text-atlas-secondary font-sans">
                         Menampilkan {logs.meta?.from || 0} - {logs.meta?.to || 0} dari {logs.meta?.total || 0} transaksi log
                     </p>
                     <div className="flex items-center gap-1.5 text-xs">
@@ -276,11 +275,10 @@ export default function Index({ logs, filters, tenants, auth }) {
                                 <Link
                                     key={idx}
                                     href={link.url}
-                                    className={`h-8 px-3 rounded-button border flex items-center justify-center font-semibold transition-colors ${
-                                        link.active 
-                                            ? 'bg-atlas-accent/15 border-atlas-accent/30 text-atlas-accent' 
+                                    className={`h-8 px-3 rounded-button border flex items-center justify-center font-semibold transition-colors ${link.active
+                                            ? 'bg-atlas-accent/15 border-atlas-accent/30 text-atlas-accent'
                                             : 'bg-atlas-surface border-atlas-border text-atlas-secondary hover:text-atlas-primary hover:bg-atlas-hover'
-                                    }`}
+                                        }`}
                                 >
                                     {isPrev ? <CaretLeft className="h-4 w-4" /> : isNext ? <CaretRight className="h-4 w-4" /> : link.label}
                                 </Link>

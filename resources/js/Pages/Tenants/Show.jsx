@@ -125,11 +125,11 @@ export default function Show({ tenant, apiKeys, overview, auth }) {
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                                 <div className="p-3.5 bg-atlas-surface border border-atlas-border/50 rounded-input">
                                     <p className="text-[10px] text-atlas-secondary uppercase font-bold tracking-wider mb-1">ID Tenant</p>
-                                    <p className="font-mono text-atlas-primary select-all break-all">{tenant.id}</p>
+                                    <p className="font-sans text-atlas-primary select-all break-all">{tenant.id}</p>
                                 </div>
                                 <div className="p-3.5 bg-atlas-surface border border-atlas-border/50 rounded-input">
                                     <p className="text-[10px] text-atlas-secondary uppercase font-bold tracking-wider mb-1">Dibuat Pada</p>
-                                    <p className="font-mono text-atlas-primary">{new Date(tenant.created_at).toLocaleString('id-ID')}</p>
+                                    <p className="font-sans text-atlas-primary">{new Date(tenant.created_at).toLocaleString('id-ID')}</p>
                                 </div>
                             </div>
                         </div>
@@ -147,7 +147,7 @@ export default function Show({ tenant, apiKeys, overview, auth }) {
                                         onChange={(e) => setData('name', e.target.value)}
                                         className="w-full px-3 py-2 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary outline-none focus:border-atlas-accent/50"
                                     />
-                                    {errors.name && <p className="text-atlas-danger mt-1 font-mono text-[10px]">{errors.name}</p>}
+                                    {errors.name && <p className="text-atlas-danger mt-1 font-sans text-[10px]">{errors.name}</p>}
                                 </div>
 
                                 <div>
@@ -158,7 +158,7 @@ export default function Show({ tenant, apiKeys, overview, auth }) {
                                         onChange={(e) => setData('type', e.target.value)}
                                         className="w-full px-3 py-2 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary outline-none focus:border-atlas-accent/50"
                                     />
-                                    {errors.type && <p className="text-atlas-danger mt-1 font-mono text-[10px]">{errors.type}</p>}
+                                    {errors.type && <p className="text-atlas-danger mt-1 font-sans text-[10px]">{errors.type}</p>}
                                 </div>
 
                                 <div>
@@ -171,7 +171,7 @@ export default function Show({ tenant, apiKeys, overview, auth }) {
                                         <option value="active">Active</option>
                                         <option value="inactive">Inactive</option>
                                     </select>
-                                    {errors.status && <p className="text-atlas-danger mt-1 font-mono text-[10px]">{errors.status}</p>}
+                                    {errors.status && <p className="text-atlas-danger mt-1 font-sans text-[10px]">{errors.status}</p>}
                                 </div>
 
                                 <button
@@ -217,7 +217,7 @@ export default function Show({ tenant, apiKeys, overview, auth }) {
                                         {apiKeys.data.map((key) => (
                                             <tr key={key.id} className="hover:bg-atlas-hover/50 transition-colors">
                                                 <td className="px-6 py-3 font-semibold text-atlas-primary">{key.label}</td>
-                                                <td className="px-6 py-3 font-mono text-[11px] select-all">{key.key_preview}</td>
+                                                <td className="px-6 py-3 font-sans text-[11px] select-all">{key.key_preview}</td>
                                                 <td className="px-6 py-3">
                                                     <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-semibold border ${
                                                         key.status === 'active' 
@@ -227,7 +227,7 @@ export default function Show({ tenant, apiKeys, overview, auth }) {
                                                         {key.status === 'active' ? 'Active' : 'Inactive'}
                                                     </span>
                                                 </td>
-                                                <td className="px-6 py-3 font-mono text-[10px]">
+                                                <td className="px-6 py-3 font-sans text-[10px]">
                                                     {new Date(key.created_at).toLocaleDateString('id-ID')}
                                                 </td>
                                             </tr>

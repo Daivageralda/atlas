@@ -98,7 +98,7 @@ export function StatCard({ label, value, prefix = '', suffix = '', useCountUp = 
             </div>
             
             <div className="flex items-baseline justify-between mt-auto w-full">
-                <div className={`font-mono select-all truncate w-full ${getValStyles()}`}>
+                <div className={`font-sans select-all truncate w-full ${getValStyles()}`}>
                     {renderValue()}
                 </div>
             </div>

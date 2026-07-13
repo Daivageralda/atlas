@@ -13,7 +13,7 @@ export function Badge({ children, variant = 'neutral', className = '' }) {
     return (
         <span 
             className={`
-                inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold tracking-wider font-mono border
+                inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold tracking-wider font-sans border
                 ${variantClasses[variant] || variantClasses.neutral}
                 ${className}
             `}

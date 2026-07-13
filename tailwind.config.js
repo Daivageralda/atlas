@@ -39,7 +39,7 @@ export default {
             },
             fontFamily: {
                 sans: ['CreatoDisplay', ...defaultTheme.fontFamily.sans],
-                mono: ['Geist Mono', 'monospace'],
+                mono: ['CreatoDisplay', ...defaultTheme.fontFamily.sans],
             },
         },
     },

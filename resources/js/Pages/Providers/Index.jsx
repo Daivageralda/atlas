@@ -15,7 +15,7 @@ import {
     Check
 } from '@phosphor-icons/react';
 import { EmptyState } from '../../Components/ui/EmptyState';
-import { SpotlightCard } from '../../Components/decorative/SpotlightCard';
+
 
 export default function Index({ providers }) {
     const [modalOpen, setModalOpen] = useState(false);
@@ -124,18 +124,13 @@ export default function Index({ providers }) {
             {providers.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {providers.map((prov) => {
-                        const CardWrapper = prov.name.toLowerCase().includes('sumopod') ? SpotlightCard : 'div';
-                        
                         return (
-                            <CardWrapper 
+                            <div 
                                 key={prov.id} 
-                                className={prov.name.toLowerCase().includes('sumopod') 
-                                    ? "flex flex-col justify-between hover:border-atlas-border/80 transition-all duration-300 relative group"
-                                    : "bg-atlas-card border border-atlas-border rounded-card p-6 flex flex-col justify-between hover:border-atlas-border/80 transition-all duration-300 relative group"
-                                }
+                                className="bg-atlas-card border border-atlas-border rounded-card p-6 flex flex-col justify-between hover:border-atlas-border/80 transition-all duration-300 relative group"
                             >
                                 {/* Role badge top right */}
-                                <span className={`absolute top-6 right-6 text-[9px] uppercase font-bold font-mono tracking-wider px-2 py-0.5 rounded-full border ${
+                                <span className={`absolute top-6 right-6 text-[9px] uppercase font-bold font-sans tracking-wider px-2 py-0.5 rounded-full border ${
                                     prov.role === 'primary' 
                                         ? 'text-atlas-accent bg-atlas-accent/10 border-atlas-accent/20' 
                                         : 'text-atlas-secondary bg-atlas-surface border-atlas-border'
@@ -150,7 +145,7 @@ export default function Index({ providers }) {
                                         </div>
                                         <div>
                                             <h3 className="text-sm font-bold text-atlas-primary">{prov.name}</h3>
-                                            <p className="text-[10px] text-atlas-secondary font-mono mt-0.5 truncate max-w-[200px] sm:max-w-[280px]">
+                                            <p className="text-[10px] text-atlas-secondary font-sans mt-0.5 truncate max-w-[200px] sm:max-w-[280px]">
                                                 {prov.api_url}
                                             </p>
                                         </div>
@@ -161,7 +156,7 @@ export default function Index({ providers }) {
                                         <div className="flex items-center gap-2">
                                             <Gear className="h-3.5 w-3.5 text-atlas-secondary" />
                                             <span>Model Target: </span>
-                                            <span className="font-mono text-atlas-primary bg-atlas-surface border border-atlas-border px-1.5 py-0.5 rounded text-[10px]">
+                                            <span className="font-sans text-atlas-primary bg-atlas-surface border border-atlas-border px-1.5 py-0.5 rounded text-[10px]">
                                                 {prov.config?.model || 'default'}
                                             </span>
                                         </div>
@@ -170,7 +165,7 @@ export default function Index({ providers }) {
                                         <div className="flex items-center gap-2">
                                             <Coins className="h-3.5 w-3.5 text-atlas-secondary" />
                                             <span>Formula Tarif: </span>
-                                            <span className="font-mono text-atlas-primary bg-atlas-surface border border-atlas-border px-1.5 py-0.5 rounded text-[10px]">
+                                            <span className="font-sans text-atlas-primary bg-atlas-surface border border-atlas-border px-1.5 py-0.5 rounded text-[10px]">
                                                 {prov.pricing_formula 
                                                     ? `$${prov.pricing_formula.rate} / ${
                                                         prov.pricing_formula.unit === 'per_1m_token'
@@ -191,7 +186,7 @@ export default function Index({ providers }) {
                                                 <span>Status Integrasi</span>
                                             </div>
                                             <div className="flex items-center gap-2.5">
-                                                <span className={`text-[10px] font-semibold font-mono ${prov.is_active ? 'text-atlas-accent' : 'text-atlas-secondary'}`}>
+                                                <span className={`text-[10px] font-semibold font-sans ${prov.is_active ? 'text-atlas-accent' : 'text-atlas-secondary'}`}>
                                                     {prov.is_active ? 'ACTIVE' : 'INACTIVE'}
                                                 </span>
                                                 <Switch.Root
@@ -224,7 +219,7 @@ export default function Index({ providers }) {
                                     <span>Hapus</span>
                                 </button>
                             </div>
-                        </CardWrapper>
+                            </div>
                     );
                 })}
                 </div>
@@ -275,7 +270,7 @@ export default function Index({ providers }) {
                                         placeholder="Contoh: SumoPod, Gemini"
                                         className="w-full px-3 py-2 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary outline-none focus:border-atlas-accent/50"
                                     />
-                                    {errors.name && <p className="text-atlas-danger mt-1 font-mono text-[10px]">{errors.name}</p>}
+                                    {errors.name && <p className="text-atlas-danger mt-1 font-sans text-[10px]">{errors.name}</p>}
                                 </div>
                                 <div>
                                     <label className="block text-[10px] uppercase font-bold tracking-wider text-atlas-secondary mb-1.5">
@@ -291,7 +286,7 @@ export default function Index({ providers }) {
                                         placeholder="gemini/gemini-3.1-flash"
                                         className="w-full px-3 py-2 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary outline-none focus:border-atlas-accent/50"
                                     />
-                                    {errors['config.model'] && <p className="text-atlas-danger mt-1 font-mono text-[10px]">{errors['config.model']}</p>}
+                                    {errors['config.model'] && <p className="text-atlas-danger mt-1 font-sans text-[10px]">{errors['config.model']}</p>}
                                 </div>
                             </div>
 
@@ -307,7 +302,7 @@ export default function Index({ providers }) {
                                     <option value="primary">Primary Engine</option>
                                     <option value="fallback">Fallback Engine</option>
                                 </select>
-                                {errors.role && <p className="text-atlas-danger mt-1 font-mono text-[10px]">{errors.role}</p>}
+                                {errors.role && <p className="text-atlas-danger mt-1 font-sans text-[10px]">{errors.role}</p>}
                             </div>
 
                             <div>
@@ -322,7 +317,7 @@ export default function Index({ providers }) {
                                     placeholder="https://ai.sumopod.com/v1"
                                     className="w-full px-3 py-2 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary outline-none focus:border-atlas-accent/50"
                                 />
-                                {errors.api_url && <p className="text-atlas-danger mt-1 font-mono text-[10px]">{errors.api_url}</p>}
+                                {errors.api_url && <p className="text-atlas-danger mt-1 font-sans text-[10px]">{errors.api_url}</p>}
                             </div>
 
                             <div>
@@ -340,7 +335,7 @@ export default function Index({ providers }) {
                                 {editingProvider && (
                                     <span className="text-[10px] text-atlas-secondary mt-1 block">Biarkan kosong untuk mempertahankan API key saat ini.</span>
                                 )}
-                                {errors.api_key_plain && <p className="text-atlas-danger mt-1 font-mono text-[10px]">{errors.api_key_plain}</p>}
+                                {errors.api_key_plain && <p className="text-atlas-danger mt-1 font-sans text-[10px]">{errors.api_key_plain}</p>}
                             </div>
 
                             {/* Pricing Formula */}

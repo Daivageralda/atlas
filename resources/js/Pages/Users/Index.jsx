@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Head, useForm, router, Link } from '@inertiajs/react';
 import * as Dialog from '@radix-ui/react-dialog';
-import { 
-    Users, 
-    MagnifyingGlass, 
-    UserPlus, 
-    PencilSimple, 
-    UserMinus, 
+import {
+    Users,
+    MagnifyingGlassIcon,
+    UserPlus,
+    PencilSimple,
+    UserMinus,
     UserCheck,
     X,
     Shield,
@@ -92,7 +92,7 @@ export default function Index({ users, filters, tenants, auth }) {
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
-        
+
         if (editingUser) {
             put(route('users.update', editingUser.id), {
                 onSuccess: () => {
@@ -128,14 +128,14 @@ export default function Index({ users, filters, tenants, auth }) {
     const getRoleBadge = (roleName) => {
         if (roleName === 'admin') {
             return (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-bold tracking-wider font-mono bg-atlas-accent/15 text-atlas-accent border border-atlas-accent/25">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-bold tracking-wider font-sans bg-atlas-accent/15 text-atlas-accent border border-atlas-accent/25">
                     <Shield className="h-2.5 w-2.5" />
                     ADMIN
                 </span>
             );
         }
         return (
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-bold tracking-wider font-mono bg-atlas-info/15 text-atlas-info border border-atlas-info/25">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-bold tracking-wider font-sans bg-atlas-info/15 text-atlas-info border border-atlas-info/25">
                 <Briefcase className="h-2.5 w-2.5" />
                 DEVELOPER
             </span>
@@ -145,13 +145,13 @@ export default function Index({ users, filters, tenants, auth }) {
     const getStatusBadge = (status) => {
         if (status === 'active') {
             return (
-                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold tracking-wider font-mono bg-atlas-success/15 text-atlas-success border border-atlas-success/25">
+                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold tracking-wider font-sans bg-atlas-success/15 text-atlas-success border border-atlas-success/25">
                     ACTIVE
                 </span>
             );
         }
         return (
-            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold tracking-wider font-mono bg-atlas-disabled/15 text-atlas-secondary border border-atlas-disabled/25">
+            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-bold tracking-wider font-sans bg-atlas-disabled/15 text-atlas-secondary border border-atlas-disabled/25">
                 INACTIVE
             </span>
         );
@@ -186,7 +186,7 @@ export default function Index({ users, filters, tenants, auth }) {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-atlas-card border border-atlas-border rounded-card p-4 text-xs">
                 {/* Search */}
                 <div className="relative">
-                    <MagnifyingGlass className="absolute left-3 top-2.5 h-3.5 w-3.5 text-atlas-secondary" />
+                    <MagnifyingGlassIcon className="absolute left-3 top-2.5 h-3.5 w-3.5 text-atlas-secondary" />
                     <input
                         type="text"
                         value={search}
@@ -242,12 +242,12 @@ export default function Index({ users, filters, tenants, auth }) {
                             </thead>
                             <tbody className="divide-y divide-atlas-border/50 text-atlas-secondary">
                                 {users.data.map((user) => (
-                                    <tr 
-                                        key={user.id} 
+                                    <tr
+                                        key={user.id}
                                         className="hover:bg-atlas-hover/30 transition-colors duration-150"
                                     >
                                         <td className="px-6 py-3.5 font-semibold text-atlas-primary">{user.name}</td>
-                                        <td className="px-6 py-3.5 font-mono text-atlas-secondary">{user.email}</td>
+                                        <td className="px-6 py-3.5 font-sans text-atlas-secondary">{user.email}</td>
                                         <td className="px-6 py-3.5">{getRoleBadge(user.role)}</td>
                                         <td className="px-6 py-3.5 text-[11px] font-medium text-atlas-primary">
                                             {user.role === 'admin' ? 'Akses Penuh (All)' : user.tenant_scope_name}
@@ -285,7 +285,7 @@ export default function Index({ users, filters, tenants, auth }) {
                                                         </button>
                                                     )
                                                 ) : (
-                                                    <span 
+                                                    <span
                                                         className="p-1.5 text-atlas-secondary/35 cursor-not-allowed"
                                                         title="Tidak bisa menonaktifkan akun sendiri"
                                                     >
@@ -324,7 +324,7 @@ export default function Index({ users, filters, tenants, auth }) {
             {/* Pagination */}
             {users.links && users.links.length > 3 && (
                 <div className="flex items-center justify-between pt-2">
-                    <p className="text-[11px] text-atlas-secondary font-mono">
+                    <p className="text-[11px] text-atlas-secondary font-sans">
                         Menampilkan {users.meta?.from || 0} - {users.meta?.to || 0} dari {users.meta?.total || 0} pengguna
                     </p>
                     <div className="flex items-center gap-1.5 text-xs">
@@ -337,11 +337,10 @@ export default function Index({ users, filters, tenants, auth }) {
                                 <Link
                                     key={idx}
                                     href={link.url}
-                                    className={`h-8 px-3 rounded-button border flex items-center justify-center font-semibold transition-colors ${
-                                        link.active 
-                                            ? 'bg-atlas-accent/15 border-atlas-accent/30 text-atlas-accent' 
+                                    className={`h-8 px-3 rounded-button border flex items-center justify-center font-semibold transition-colors ${link.active
+                                            ? 'bg-atlas-accent/15 border-atlas-accent/30 text-atlas-accent'
                                             : 'bg-atlas-surface border-atlas-border text-atlas-secondary hover:text-atlas-primary hover:bg-atlas-hover'
-                                    }`}
+                                        }`}
                                 >
                                     {isPrev ? <CaretLeft className="h-4 w-4" /> : isNext ? <CaretRight className="h-4 w-4" /> : link.label}
                                 </Link>
@@ -384,7 +383,7 @@ export default function Index({ users, filters, tenants, auth }) {
                                     placeholder="e.g. John Doe"
                                     className="w-full px-3 py-2 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary outline-none focus:border-atlas-accent/50 text-xs"
                                 />
-                                {errors.name && <p className="text-atlas-danger mt-1 font-mono text-[10px]">{errors.name}</p>}
+                                {errors.name && <p className="text-atlas-danger mt-1 font-sans text-[10px]">{errors.name}</p>}
                             </div>
 
                             {/* Email */}
@@ -399,9 +398,9 @@ export default function Index({ users, filters, tenants, auth }) {
                                     value={data.email}
                                     onChange={(e) => setData('email', e.target.value)}
                                     placeholder="e.g. john@example.com"
-                                    className="w-full px-3 py-2 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary outline-none focus:border-atlas-accent/50 disabled:opacity-40 text-xs font-mono"
+                                    className="w-full px-3 py-2 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary outline-none focus:border-atlas-accent/50 disabled:opacity-40 text-xs font-sans"
                                 />
-                                {errors.email && <p className="text-atlas-danger mt-1 font-mono text-[10px]">{errors.email}</p>}
+                                {errors.email && <p className="text-atlas-danger mt-1 font-sans text-[10px]">{errors.email}</p>}
                             </div>
 
                             {/* Role */}
@@ -425,7 +424,7 @@ export default function Index({ users, filters, tenants, auth }) {
                                     <option value="developer">Developer (Tenant Scoped)</option>
                                     <option value="admin">Admin (Full Access)</option>
                                 </select>
-                                {errors.role && <p className="text-atlas-danger mt-1 font-mono text-[10px]">{errors.role}</p>}
+                                {errors.role && <p className="text-atlas-danger mt-1 font-sans text-[10px]">{errors.role}</p>}
                             </div>
 
                             {/* Tenant Scope (developer only) */}
@@ -444,7 +443,7 @@ export default function Index({ users, filters, tenants, auth }) {
                                             <option key={t.id} value={t.id}>{t.name}</option>
                                         ))}
                                     </select>
-                                    {errors.tenant_scope && <p className="text-atlas-danger mt-1 font-mono text-[10px]">{errors.tenant_scope}</p>}
+                                    {errors.tenant_scope && <p className="text-atlas-danger mt-1 font-sans text-[10px]">{errors.tenant_scope}</p>}
                                 </div>
                             )}
 
@@ -462,7 +461,7 @@ export default function Index({ users, filters, tenants, auth }) {
                                         <option value="active">Active</option>
                                         <option value="inactive">Inactive</option>
                                     </select>
-                                    {errors.status && <p className="text-atlas-danger mt-1 font-mono text-[10px]">{errors.status}</p>}
+                                    {errors.status && <p className="text-atlas-danger mt-1 font-sans text-[10px]">{errors.status}</p>}
                                 </div>
                             )}
 

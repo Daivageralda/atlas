@@ -146,7 +146,7 @@ export default function Index({ tenant, apiKeys, tenants, auth, flash }) {
                                 {apiKeys.data.map((key) => (
                                     <tr key={key.id} className="hover:bg-atlas-hover transition-colors duration-150">
                                         <td className="px-6 py-4 font-semibold text-atlas-primary">{key.label}</td>
-                                        <td className="px-6 py-4 font-mono text-[11px] select-all">{key.key_preview}</td>
+                                        <td className="px-6 py-4 font-sans text-[11px] select-all">{key.key_preview}</td>
                                         <td className="px-6 py-4">
                                             <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold border ${
                                                 key.status === 'active' 
@@ -156,11 +156,11 @@ export default function Index({ tenant, apiKeys, tenants, auth, flash }) {
                                                 {key.status === 'active' ? 'Active' : 'Revoked'}
                                             </span>
                                         </td>
-                                        <td className="px-6 py-4 font-mono text-[10px]">{key.scopes || 'translate'}</td>
-                                        <td className="px-6 py-4 font-mono text-[11px]">
+                                        <td className="px-6 py-4 font-sans text-[10px]">{key.scopes || 'translate'}</td>
+                                        <td className="px-6 py-4 font-sans text-[11px]">
                                             {key.last_used_at ? new Date(key.last_used_at).toLocaleString('id-ID') : 'Never'}
                                         </td>
-                                        <td className="px-6 py-4 font-mono text-[11px]">
+                                        <td className="px-6 py-4 font-sans text-[11px]">
                                             {new Date(key.created_at).toLocaleDateString('id-ID')}
                                         </td>
                                         <td className="px-6 py-4 text-right">
@@ -252,7 +252,7 @@ export default function Index({ tenant, apiKeys, tenants, auth, flash }) {
                                             <option key={t.id} value={t.id}>{t.name}</option>
                                         ))}
                                     </select>
-                                    {errors.tenant_id && <p className="text-atlas-danger mt-1 font-mono text-[10px]">{errors.tenant_id}</p>}
+                                    {errors.tenant_id && <p className="text-atlas-danger mt-1 font-sans text-[10px]">{errors.tenant_id}</p>}
                                 </div>
                             )}
 
@@ -268,7 +268,7 @@ export default function Index({ tenant, apiKeys, tenants, auth, flash }) {
                                     placeholder="Contoh: Production Environment, Staging"
                                     className="w-full px-3 py-2 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary outline-none focus:border-atlas-accent/50"
                                 />
-                                {errors.label && <p className="text-atlas-danger mt-1 font-mono text-[10px]">{errors.label}</p>}
+                                {errors.label && <p className="text-atlas-danger mt-1 font-sans text-[10px]">{errors.label}</p>}
                             </div>
 
                             <div>
@@ -282,7 +282,7 @@ export default function Index({ tenant, apiKeys, tenants, auth, flash }) {
                                     placeholder="translate, memory.write"
                                     className="w-full px-3 py-2 bg-atlas-surface border border-atlas-border rounded-input text-atlas-primary outline-none focus:border-atlas-accent/50"
                                 />
-                                {errors.scopes && <p className="text-atlas-danger mt-1 font-mono text-[10px]">{errors.scopes}</p>}
+                                {errors.scopes && <p className="text-atlas-danger mt-1 font-sans text-[10px]">{errors.scopes}</p>}
                             </div>
 
                             <div className="flex justify-end gap-2.5 pt-4 border-t border-atlas-border/50">
@@ -329,7 +329,7 @@ export default function Index({ tenant, apiKeys, tenants, auth, flash }) {
                         </div>
 
                         {flash?.new_key && (
-                            <div className="flex items-center justify-between gap-3 p-3 bg-atlas-surface border border-atlas-border rounded-input font-mono text-xs mb-6 select-all break-all">
+                            <div className="flex items-center justify-between gap-3 p-3 bg-atlas-surface border border-atlas-border rounded-input font-sans text-xs mb-6 select-all break-all">
                                 <span className="text-atlas-primary font-bold">{flash.new_key}</span>
                                 <button
                                     onClick={handleCopy}

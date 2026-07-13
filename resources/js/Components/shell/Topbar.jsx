@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { usePage, Link } from '@inertiajs/react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import { List, MagnifyingGlass, Bell, CaretDown, User, Gear, SignOut } from '@phosphor-icons/react';
+import { List, MagnifyingGlassIcon, Bell, CaretDown, User, Gear, SignOut } from '@phosphor-icons/react';
 import { CommandPalette } from './CommandPalette';
 
 export function Topbar({ onMenuClick }) {
@@ -41,7 +41,7 @@ export function Topbar({ onMenuClick }) {
                     className="h-9 w-9 rounded-lg bg-atlas-hover border border-atlas-border flex items-center justify-center text-atlas-secondary hover:text-atlas-primary outline-none focus-visible:ring-2 focus-visible:ring-atlas-accent/40"
                     title="Cari (Cmd+K)"
                 >
-                    <MagnifyingGlass className="h-4 w-4" />
+                    <MagnifyingGlassIcon className="h-4 w-4" />
                 </button>
 
                 <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
